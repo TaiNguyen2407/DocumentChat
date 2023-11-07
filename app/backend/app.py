@@ -12,9 +12,6 @@ def hello_world():
     }
     return jsonify(response)
 
-@app.route('/test')
-def test():
-    return 'testing from a different route'
 
 if __name__ == "__main__":
     app.run(debug=True)
