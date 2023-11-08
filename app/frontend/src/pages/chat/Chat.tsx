@@ -4,7 +4,8 @@ import './Chat.css'
 const Chat = () => {
   
     return (
-      <div className="landing-page">
+      <div className="chat">
+        this is a test page
       </div>
     )
 }

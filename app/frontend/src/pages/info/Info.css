@@ -1,0 +1,12 @@
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    margin: 2rem 5rem;
+    line-height: 1.5rem;
+}
+
+strong {
+    display: inline;
+}
