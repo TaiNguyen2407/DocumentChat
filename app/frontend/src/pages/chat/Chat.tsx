@@ -22,13 +22,16 @@ const Chat = () => {
                 isDisabled={false} 
                 className="chat-clear-chat-button" 
             />
-            <div className='chat-main-section'>
+            {/*
+                <div className='chat-main-section'>
                 <h1 className="chat-title">Chat with your own data</h1>
                 <UploadDocumentArea 
                     onUploadDocument={uploadDocument}  
                     className="chat-upload-document-area" 
                 />
             </div>
+            */}
+            
             <div className='chat-question-input'>
                 <QuestionInput 
                     onSend={onSend} 

@@ -1,7 +1,7 @@
 import { Stack, TextField } from "@fluentui/react"
 import { Send28Filled } from "@fluentui/react-icons"
 import { useState } from "react"
-
+import "./QuestionInput.css"
 interface QuestionInputProps {
     onSend: (question: string) => void 
     isDisabled: boolean
@@ -53,7 +53,7 @@ const QuestionInput = ({onSend, isDisabled, placeholder, clearOnSend} : Question
                 onChange={onQuestionChange}
                 onKeyDown={onEnterPress}
             />
-            <div className="question-input-buttons-container">
+            <div>
                 <div
                     className={`question-input-send-button ${sendQuestionDisabled ?? "question-input-send-button-is-disabled"}`}
                     aria-label="Ask question button"
