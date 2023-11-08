@@ -2,7 +2,7 @@ import "./Info.css";
 
 const Info = () => {
   return (
-    <div className="info">
+    <div className="info-container">
 		<strong>
 			<h2>What is Document Chat Application?</h2>
 		</strong>

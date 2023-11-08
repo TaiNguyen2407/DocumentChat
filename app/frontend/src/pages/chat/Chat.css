@@ -1,4 +1,42 @@
-.chat {
+.chat-container {
+    width: 100%;
     margin: 2rem 5rem;
     text-align: center;
+}
+
+.chat-title {
+    font-size: 3rem;
+}
+
+.chat-clear-chat-button {
+    cursor: pointer;
+    float: right;
+}
+
+.chat-upload-document-area {
+    float: right;
+    width: fit-content;
+    cursor: pointer;
+    border: 0.2rem dashed rgb(148, 148, 148);
+    background-color: #d0cece;
+    padding: 0.5rem;
+    margin-top: 3rem;
+}
+
+.chat-main-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.chat-question-input {
+    position: sticky;
+    bottom: 0;
+    line-height: 1.5rem;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.14);
+    padding: 1rem;
+    border-radius: 1rem;
+    resize: none;
 }
