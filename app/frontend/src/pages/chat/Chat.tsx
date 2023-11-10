@@ -1,46 +1,25 @@
-import { ClearChatButton } from '../../components/ClearChatButton/ClearChatButton';
+import { useState } from 'react';
+import ChatMessages, { Message } from '../../components/ChatMessages/ChatMessages';
 import QuestionInput from '../../components/QuestionInput/QuestionInput';
-import UploadDocumentArea from '../../components/UploadDocumentArea/UploadDocumentArea';
 import './Chat.css'
 
 const Chat = () => {
-    const clearChat = () => {
-        console.log("clear chat");
-    }
+    const [messages, setMessages] = useState<Message[]>([]);
 
-    const uploadDocument = () => {
-        console.log("upload document");
-    }
-
-    const onSend = () => {
-        console.log("send question");
-    }
+    const onSendTextMessage = (text: string) => {
+        const newMessage: Message = { id: messages.length + 1, text, sender: 'user' };
+        setMessages([...messages, newMessage]);
+      };
     return (
         <div className="chat-container">
-            <ClearChatButton 
-                onClearChat={clearChat} 
+            <ChatMessages messages={messages} />
+            <QuestionInput 
+                onSend={onSendTextMessage} 
                 isDisabled={false} 
-                className="chat-clear-chat-button" 
+                placeholder='Type a new question (e.g. what is this data about?)' 
+                clearOnSend
             />
-            {/*
-                <div className='chat-main-section'>
-                <h1 className="chat-title">Chat with your own data</h1>
-                <UploadDocumentArea 
-                    onUploadDocument={uploadDocument}  
-                    className="chat-upload-document-area" 
-                />
-            </div>
-            */}
-            
-            <div className='chat-question-input'>
-                <QuestionInput 
-                    onSend={onSend} 
-                    isDisabled={false} 
-                    placeholder='Type a new question (e.g. what is this data about?)' 
-                    clearOnSend
-                />
-            </div>
-       
+        
         </div>
     )
 }
