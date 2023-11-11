@@ -1,11 +1,12 @@
 .chat-container {
-    width: 100%;
     height: 100%;
-    padding: 5rem;
-    text-align: center;
+    border: 0.1rem solid #ccc;
+    margin: 0 20rem;
+    background-color: rgb(250, 246, 236);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden;
 }
 
 .chat-title {
@@ -25,13 +26,4 @@
     padding: 0.5rem;
     margin-top: 3rem;
 }
-
-.chat-main-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 3rem;
-}
-
 
