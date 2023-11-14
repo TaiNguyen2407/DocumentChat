@@ -7,11 +7,18 @@ import './Chat.css'
 
 const Chat = () => {
     const [messages, setMessages] = useState<Message[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+
 
     const onSendTextMessage = async (text: string) => {
         const newMessage: Message = { id: messages.length + 1, text, sender: 'user' };
         setMessages([...messages, newMessage]);
-        await postMessageToBackendApi({question: text, role: UserRoles.User})
+        try {
+            await postMessageToBackendApi({question: text, role: UserRoles.User})
+            setIsLoading(true)
+        } catch (error) {
+            console.log(error);
+        }
       };
     return (
         <div className="chat-container">

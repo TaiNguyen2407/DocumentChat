@@ -26,20 +26,3 @@ export async function postMessageToBackendApi(messageToBackend: AskRequest) {
         }
     }
 }
-
-export async function getAnswerFromBackendApi() {
-    const response = await fetch(BaseUrl + '/api/chat/bot-answer', {
-        method: "GET",
-        headers: {
-            'Content-Type' : 'application/json'
-        },
-    })
-
-    const parsedRepsonse = await response.json();
-    if (response.status > 299 || !response.ok) {
-        throw Error(parsedRepsonse.error || "unknown error");
-    }
-
-    return parsedRepsonse;
-    
-}
