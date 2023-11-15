@@ -14,6 +14,7 @@
 .question-input-send-button {
     cursor: pointer;
     margin-top: 1rem;
+    margin-right: 1rem;
 }
 
 .question-input-send-button-is-disabled {

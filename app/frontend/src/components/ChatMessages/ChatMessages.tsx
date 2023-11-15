@@ -19,8 +19,8 @@ const ChatMessages = ({messages} : ChatMessagesProps) => {
       		{messages.map((message) => (
         		<div className="chat-message">
           			{message.sender == "user" ? 
-          				<UserIcon icon={faUser} size="xl"/> : 
-					  	<BotIcon icon={faRobot} size="xl"/>
+          				<UserIcon icon={faUser} size="xl"  style={{ marginRight: '8px' }}/> : 
+					  	<BotIcon icon={faRobot} size="xl" style={{ marginRight: '8px' }}/>
           			}
 				<div key={message.id} className={`message ${message.sender}`}>          
 					{message.text}
