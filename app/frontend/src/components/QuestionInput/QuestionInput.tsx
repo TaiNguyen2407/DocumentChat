@@ -42,9 +42,9 @@ const QuestionInput = ({onSend, isDisabled, placeholder, clearOnSend} : Question
     const sendQuestionDisabled = isDisabled || !question.trim();
 
     return (
-        <Stack horizontal className="question-input-container">
+        <Stack horizontal className="rounded-lg shadow-lg bg-white m-8">
             <TextField
-                className="question-input-text-area"
+                className="w-full px-4 leading-6"
                 placeholder={placeholder}
                 multiline
                 resizable={false}
@@ -55,7 +55,7 @@ const QuestionInput = ({onSend, isDisabled, placeholder, clearOnSend} : Question
             />
             <div>
                 <div
-                    className={`question-input-send-button ${sendQuestionDisabled ?? "question-input-send-button-is-disabled"}`}
+                    className={`cursor-pointer mt-4 ${sendQuestionDisabled ?? "opacity-40"}`}
                     aria-label="Ask question button"
                     onClick={sendQuestion}
                 >
