@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { postMessageToBackendApi } from '../../api/api';
-import { UserRoles } from '../../api/models';
-import ChatMessages, { Message } from '../../components/ChatMessages/ChatMessages';
-import QuestionInput from '../../components/QuestionInput/QuestionInput';
-import './Chat.css'
+import { postMessageToBackendApi } from '../api/api';
+import { UserRoles } from '../api/models';
+import ChatMessages, { Message } from '../components/ChatMessages';
+import QuestionInput from '../components/QuestionInput';
 
 const Chat = () => {
     const [messages, setMessages] = useState<Message[]>([]);

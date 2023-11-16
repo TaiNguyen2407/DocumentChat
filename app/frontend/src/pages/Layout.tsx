@@ -5,7 +5,6 @@ import { FontAwesomeIcon as InfoIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 import { Link, Outlet } from "react-router-dom";
-import './Layout.css'
 
 const Layout = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);

@@ -1,7 +1,7 @@
 import { Stack, TextField } from "@fluentui/react"
 import { Send28Filled } from "@fluentui/react-icons"
 import { useState } from "react"
-import "./QuestionInput.css"
+
 interface QuestionInputProps {
     onSend: (question: string) => void 
     isDisabled: boolean

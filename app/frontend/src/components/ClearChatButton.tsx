@@ -1,6 +1,5 @@
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as TrashCanIcon } from "@fortawesome/react-fontawesome";
-import "./ClearChatButton.css"
 
 interface ClearChatButtonProps {
     className?: string;
