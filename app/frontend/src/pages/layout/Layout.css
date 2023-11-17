@@ -16,3 +16,15 @@
     text-align: center;
     font-size: 1rem;
 }
+
+.main-sidebar {
+    background-color: aqua; /* Temporary color */
+    flex: 2;
+}
+
+.menu-info {
+    margin-top: auto; 
+    border: 3px solid #73AD21; /* Temporary color */
+    flex: 1;
+    background-color: burlywood; /* Temporary color */
+}

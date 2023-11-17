@@ -16,16 +16,26 @@ const Layout = () => {
     return (
         <div className="root-layout">
             <Sidebar collapsed={isCollapsed}>
-                <Menu>
-                    <MenuItem icon={<HamburgerMenuIcon icon={faBars} />} onClick={collapseHamburgerMenu}  />
-                    <MenuItem icon={<ChatIcon icon={faMessage} /> } component={<Link to='/'/>}> 
-                        Chat
-                    </MenuItem>
-                    <MenuItem icon={<InfoIcon icon={faCircleInfo} />} component={<Link to='/info' />}> 
-                        Info
-                    </MenuItem>
-                </Menu>
+                <div className="main-sidebar">
+                    <Menu>
+                        <MenuItem icon={<HamburgerMenuIcon icon={faBars} />} onClick={collapseHamburgerMenu}  />
+                        <MenuItem icon={<ChatIcon icon={faMessage} /> } component={<Link to='/'/>} > 
+                            Chat
+                        </MenuItem>
+                    </Menu>
+
+                </div>
+                
+                <div className="menu-info">
+                    <Menu>
+                        <MenuItem icon={<InfoIcon icon={faCircleInfo} />} component={<Link to='/info' />}> 
+                            Info
+                        </MenuItem>
+                    </Menu>
+                </div>
+                
             </Sidebar>
+            
             <div className="layout">
                 <header className="layout-header">
                     <h1>Document Chat Application</h1>

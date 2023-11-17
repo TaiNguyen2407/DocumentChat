@@ -1,7 +1,7 @@
 .chat-container {
     height: 100%;
     border: 0.1rem solid #ccc;
-    margin: 1rem 20rem;
+    margin: 1rem 5rem;
     background-color: rgb(250, 246, 236);
     display: flex;
     flex-direction: column;
