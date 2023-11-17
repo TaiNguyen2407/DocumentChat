@@ -5,7 +5,7 @@ import { FontAwesomeIcon as BotIcon } from "@fortawesome/react-fontawesome";
 export interface Message {
   id?: number;
   text: string;
-  sender: 'user' | 'bot';
+  sender: 'user' | 'assistant';
 }
 
 interface ChatMessagesProps {
@@ -29,5 +29,6 @@ const ChatMessages = ({messages} : ChatMessagesProps) => {
     </div>
   );
 };
+
 
 export default ChatMessages;

@@ -6,6 +6,8 @@ from gpt4all import GPT4All
 app = Flask(__name__)
 CORS(app)
 
+data = []
+
 chat_model = "orca-mini-3b-gguf2-q4_0.gguf"
 model = GPT4All(model_name=chat_model)
 
@@ -19,12 +21,19 @@ def generate_answer_from_chat_model(question: str, temp: int = 0):
         return model.generate(prompt=question, temp=temp)
     
 
+@app.route('/api/chat/all-messages', methods=["GET"])
+def chat_history():
+    return data
+    
+
 @app.route('/api/chat/user-question', methods=["POST"])
 def handle_frontend_request():
     question_from_frontend = request.json["question"]
     response = generate_answer_from_chat_model(question_from_frontend)
     print(response)
     data_to_send_back = {"sender" : "assistant", "content" : response}
+    chat_bot = data_to_send_back
+    data.append(chat_bot)
     return jsonify(data_to_send_back)
 
 

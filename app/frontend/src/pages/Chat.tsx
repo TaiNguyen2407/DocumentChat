@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { postMessageToBackendApi } from '../api/api';
+import { postMessageToBackendApi, getMessagesFromBackendApi } from '../api/api';
 import { UserRoles } from '../api/models';
 import ChatMessages, { Message } from '../components/ChatMessages';
 import QuestionInput from '../components/QuestionInput';
@@ -11,12 +11,18 @@ const Chat = () => {
 
     const onSendTextMessage = async (text: string) => {
         const newMessage: Message = { id: messages.length + 1, text, sender: 'user' };
-        setMessages([...messages, newMessage]);
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+        setIsLoading(true);
+
         try {
             await postMessageToBackendApi({question: text, role: UserRoles.User})
-            setIsLoading(true)
+            const botMessage = await getMessagesFromBackendApi()
+            const newMessageBot: Message = { id: messages.length + 2, text: botMessage["content"], sender: botMessage["sender"] };
+            setMessages((prevMessages) => [...prevMessages, newMessageBot]);
         } catch (error) {
             console.log(error);
+        } finally {
+            setIsLoading(false);
         }
       };
     return (
@@ -24,7 +30,7 @@ const Chat = () => {
             <ChatMessages messages={messages} />
             <QuestionInput 
                 onSend={onSendTextMessage} 
-                isDisabled={false} 
+                isDisabled={isLoading} 
                 placeholder='Type a new question (e.g. what is this data about?)' 
                 clearOnSend
             />
