@@ -1,6 +1,5 @@
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as TrashCanIcon } from "@fortawesome/react-fontawesome";
-import "./ClearChatButton.css"
 
 interface ClearChatButtonProps {
     className?: string;
@@ -10,9 +9,9 @@ interface ClearChatButtonProps {
 
 export const ClearChatButton = ({className, onClearChat, isDisabled} : ClearChatButtonProps) => {
     return (
-        <div className={`clear-chat-button-container, ${className ?? ""} ${isDisabled && 'clear-chat-button-is-disabled'}`} onClick={onClearChat} >
+        <div className={`flex flex-row items-start cursor-pointer ${className ?? ""} ${isDisabled && 'opacity-40 pointer-events-none'}`} onClick={onClearChat} >
             <TrashCanIcon icon={faTrashCan} size="2xl" />
-            <h4 className="trashcan-text">Clear Chat</h4>
+            <h4 className="text-lg mt-2">Clear Chat</h4>
         </div>
     )
 }
