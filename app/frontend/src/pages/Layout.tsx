@@ -15,15 +15,24 @@ const Layout = () => {
     return (
         <div className="flex flex-row w-full h-full">
             <Sidebar collapsed={isCollapsed}>
-                <Menu>
-                    <MenuItem icon={<HamburgerMenuIcon icon={faBars} />} onClick={collapseHamburgerMenu}  />
-                    <MenuItem icon={<ChatIcon icon={faMessage} /> } component={<Link to='/'/>}> 
-                        Chat
-                    </MenuItem>
-                    <MenuItem icon={<InfoIcon icon={faCircleInfo} />} component={<Link to='/info' />}> 
-                        Info
-                    </MenuItem>
-                </Menu>
+                <div className="h-full border flex flex-col justify-between overflow-hidden">
+                    <div>
+                        <Menu>
+                            <MenuItem icon={<HamburgerMenuIcon icon={faBars} />} onClick={collapseHamburgerMenu}  />
+                            <MenuItem icon={<ChatIcon icon={faMessage} /> } component={<Link to='/'/>}> 
+                                Chat
+                            </MenuItem>
+                        </Menu>
+                    </div>
+
+                    <div>
+                        <Menu>
+                            <MenuItem icon={<InfoIcon icon={faCircleInfo} />} component={<Link to='/info' />}> 
+                                Info
+                            </MenuItem>
+                        </Menu>
+                    </div>
+                </div>
             </Sidebar>
             <div className="flex flex-col w-full h-full">
                 <header className="text-center font-base">

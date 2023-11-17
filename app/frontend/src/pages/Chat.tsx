@@ -26,7 +26,7 @@ const Chat = () => {
         }
       };
     return (
-        <div className="h-full border border-solid mx-60 bg-[#faf6ec] flex flex-col justify-between overflow-hidden">
+        <div className="h-full border border-solid mx-20 mb-7 bg-[#faf6ec] flex flex-col justify-between overflow-hidden">
             <ChatMessages messages={messages} />
             <QuestionInput 
                 onSend={onSendTextMessage} 

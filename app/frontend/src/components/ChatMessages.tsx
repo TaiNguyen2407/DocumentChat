@@ -16,10 +16,10 @@ const ChatMessages = ({messages} : ChatMessagesProps) => {
   	return (
     	<div className="h-full w-full flex-1 overflow-y-auto p-4">
       		{messages.map((message) => (
-        		<div className="flex flex-row">
+        		<div className="flex flex-row mt-4">
           			{message.sender === "user" ? 
-          				<UserIcon icon={faUser} size="xl" className="pr-4"/> : 
-					  	<BotIcon icon={faRobot} size="xl" className="pl-4"/>
+          				<UserIcon icon={faUser} size="xl" className="pr-2" /> : 
+					  	<BotIcon icon={faRobot} size="xl" className="pr-2 pl-3"/>
           			}
 				<div key={message.id} className={`w-fit mb-2 p-1 rounded ${message.sender === "user" ? "bg-[#007bff] text-[#fff]" : "bg-[#e0e0e0] text-[#000] items-start"}`}>          
 					{message.text}
