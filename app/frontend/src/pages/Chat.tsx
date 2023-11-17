@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { postMessageToBackendApi } from '../../api/api';
-import { UserRoles } from '../../api/models';
-import ChatMessages, { Message } from '../../components/ChatMessages/ChatMessages';
-import QuestionInput from '../../components/QuestionInput/QuestionInput';
-import './Chat.css'
+import { postMessageToBackendApi } from '../api/api';
+import { UserRoles } from '../api/models';
+import ChatMessages, { Message } from '../components/ChatMessages';
+import QuestionInput from '../components/QuestionInput';
 
 const Chat = () => {
     const [messages, setMessages] = useState<Message[]>([]);
@@ -21,7 +20,7 @@ const Chat = () => {
         }
       };
     return (
-        <div className="chat-container">
+        <div className="h-full border border-solid mx-60 bg-[#faf6ec] flex flex-col justify-between overflow-hidden">
             <ChatMessages messages={messages} />
             <QuestionInput 
                 onSend={onSendTextMessage} 

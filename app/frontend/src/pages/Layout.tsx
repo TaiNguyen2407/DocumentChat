@@ -5,7 +5,6 @@ import { FontAwesomeIcon as InfoIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 import { Link, Outlet } from "react-router-dom";
-import './Layout.css'
 
 const Layout = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -14,7 +13,7 @@ const Layout = () => {
         setIsCollapsed(!isCollapsed);
     }
     return (
-        <div className="root-layout">
+        <div className="flex flex-row w-full h-full">
             <Sidebar collapsed={isCollapsed}>
                 <Menu>
                     <MenuItem icon={<HamburgerMenuIcon icon={faBars} />} onClick={collapseHamburgerMenu}  />
@@ -26,9 +25,9 @@ const Layout = () => {
                     </MenuItem>
                 </Menu>
             </Sidebar>
-            <div className="layout">
-                <header className="layout-header">
-                    <h1>Document Chat Application</h1>
+            <div className="flex flex-col w-full h-full">
+                <header className="text-center font-base">
+                    <h1 className="text-3xl font-extrabold my-8">Document Chat Application</h1>
                 </header>
                 <Outlet />
             </div>
