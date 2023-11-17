@@ -6,7 +6,7 @@ import "./ChatMessages.css";
 export interface Message {
   id?: number;
   text: string;
-  sender: 'user' | 'bot';
+  sender: 'user' | 'assistant';
 }
 
 interface ChatMessagesProps {
@@ -30,5 +30,6 @@ const ChatMessages = ({messages} : ChatMessagesProps) => {
     </div>
   );
 };
+
 
 export default ChatMessages;
