@@ -20,29 +20,34 @@ const Layout = () => {
   return (
     <div className="flex flex-row w-full h-full">
       <Sidebar collapsed={isCollapsed} className="border shadow-lg">
-        <div>
-          <img src={logo} alt="logo" />
+        <div className="h-full border flex flex-col justify-between overflow-hidden">
+          <div>
+
+            <div className="border-b shadow-lg">
+              <img src={logo} alt="logo" />
+            </div>
+
+            <div>
+                <Menu>
+                    <MenuItem icon={<HamburgerMenuIcon icon={faBars} />} onClick={collapseHamburgerMenu}  />
+                    <MenuItem icon={<ChatIcon icon={faMessage} /> } component={<Link to='/'/>}> 
+                        Chat
+                    </MenuItem>
+                </Menu>
+            </div>
+          </div>
+          
+          <div>
+              <Menu>
+                  <MenuItem icon={<InfoIcon icon={faCircleInfo} />} component={<Link to='/info' />}> 
+                      Info
+                  </MenuItem>
+              </Menu>
+          </div>
+
         </div>
-        <Menu>
-          <MenuItem
-            icon={<HamburgerMenuIcon icon={faBars} />}
-            onClick={collapseHamburgerMenu}
-          />
-          <MenuItem
-            icon={<ChatIcon icon={faMessage} />}
-            component={<Link to="/" />}
-          >
-            Chat
-          </MenuItem>
-          <MenuItem
-            icon={<InfoIcon icon={faCircleInfo} />}
-            component={<Link to="/info" />}
-          >
-            Info
-          </MenuItem>
-        </Menu>
       </Sidebar>
-      <div className="flex flex-col w-full h-full bg-gradient-to-r from-gray-200 to-gray-100">
+      <div className="flex flex-col w-full h-full bg-gradient-to-r from-gray-200 to-gray-100 overflow-scroll">
         <Outlet />
       </div>
     </div>
