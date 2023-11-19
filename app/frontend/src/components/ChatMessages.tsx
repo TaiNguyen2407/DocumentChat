@@ -28,7 +28,7 @@ const ChatMessages = ({ messages, loadingAnswer }: ChatMessagesProps) => {
               <div
                 key={message.id}
                 className={
-                  "w-fit max-w-xl mb-4 p-1.5 rounded-tr-lg rounded-tl-lg rounded-br-lg border shadow-lg bg-[#007bff] text-[#fff] text-lg"
+                  "w-fit max-w-xl mb-4 p-1.5 rounded-tr-lg rounded-tl-lg rounded-br-lg border shadow-lg bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r text-[#fff] text-lg"
                 }
               >
                 {message.text}
@@ -44,7 +44,7 @@ const ChatMessages = ({ messages, loadingAnswer }: ChatMessagesProps) => {
               <div
                 key={message.id}
                 className={
-                  "w-fit max-w-xl mb-4 p-1.5 rounded-tr-lg rounded-tl-lg rounded-bl-lg bg-[#e0e0e0] text-[#000] text-lg"
+                  "w-fit max-w-xl mb-4 p-1.5 rounded-tr-lg rounded-tl-lg rounded-bl-lg bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300 text-gray-800 text-lg"
                 }
               >
                 {message.text}
@@ -57,9 +57,9 @@ const ChatMessages = ({ messages, loadingAnswer }: ChatMessagesProps) => {
         <div className="flex flex-row-reverse">
           <BotIcon icon={faRobot} size="2xl" className="pl-4 pt-6 self-end" />
           <div className="flex flex-row gap-2">
-            <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:.7s]"></div>
-            <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:.3s]"></div>
-            <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:.7s]"></div>
+            <div className="w-4 h-4 rounded-full bg-blue-100 animate-bounce [animation-delay:.7s]"></div>
+            <div className="w-4 h-4 rounded-full bg-blue-200 animate-bounce [animation-delay:.3s]"></div>
+            <div className="w-4 h-4 rounded-full bg-blue-300 animate-bounce [animation-delay:.7s]"></div>
           </div>
         </div>
       ) : (

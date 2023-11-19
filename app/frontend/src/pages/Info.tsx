@@ -40,14 +40,12 @@ const Info = () => {
               stores the latest document sent by user in user-level isolated
               data storage in AWS
             </p>
-
             <strong className="inline text-xl">
               You can only see the documents that you have uploaded yourself. No
               chats or other information is shared between the users.
             </strong>
-            <br />
             <strong className="inline text-2xl">
-              <h2>How to use the chat?</h2>
+              <h2 className="pt-4">How to use the chat?</h2>
             </strong>
             <ol className="text-lg pb-4">
               <li>
