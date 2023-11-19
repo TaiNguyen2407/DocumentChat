@@ -15,10 +15,12 @@ model = GPT4All(model_name=chat_model)
 def chat():
     print("hello world")
 
+    
+def generate_answer_from_chat_model(question: str, conversation_history: list, temp: int = 0):
+    context = " ".join([msg["content"] for msg in conversation_history])
 
-def generate_answer_from_chat_model(question: str, temp: int = 0):
     with model.chat_session():
-        return model.generate(prompt=question, temp=temp)
+        return model.generate(prompt=f"{context}\nUser: {question}", temp=temp)
     
 
 @app.route('/api/chat/all-messages', methods=["GET"])
@@ -29,10 +31,12 @@ def chat_history():
 @app.route('/api/chat/user-question', methods=["POST"])
 def handle_frontend_request():
     question_from_frontend = request.json["question"]
-    response = generate_answer_from_chat_model(question_from_frontend)
+    response = generate_answer_from_chat_model(question_from_frontend, data)
     print(response)
     data_to_send_back = {"sender" : "assistant", "content" : response}
+    chat_user = {"sender" : "user", "content" : question_from_frontend}
     chat_bot = data_to_send_back
+    data.append(chat_user)
     data.append(chat_bot)
     return jsonify(data_to_send_back)
 
