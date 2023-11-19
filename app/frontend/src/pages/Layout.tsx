@@ -23,7 +23,7 @@ const Layout = () => {
         <div className="h-full border flex flex-col justify-between overflow-hidden">
           <div>
 
-            <div>
+            <div className="border-b shadow-lg">
               <img src={logo} alt="logo" />
             </div>
 
@@ -47,7 +47,7 @@ const Layout = () => {
 
         </div>
       </Sidebar>
-      <div className="flex flex-col w-full h-full bg-gradient-to-r from-gray-200 to-gray-100">
+      <div className="flex flex-col w-full h-full bg-gradient-to-r from-gray-200 to-gray-100 overflow-scroll">
         <Outlet />
       </div>
     </div>
