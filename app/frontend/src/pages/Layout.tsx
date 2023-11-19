@@ -9,6 +9,7 @@ import { FontAwesomeIcon as InfoIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 import { Link, Outlet } from "react-router-dom";
+import logo  from "../resources/images/logo.png"
 
 const Layout = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -20,7 +21,7 @@ const Layout = () => {
     <div className="flex flex-row w-full h-full">
       <Sidebar collapsed={isCollapsed} className="border shadow-lg">
         <div>
-          <img src={require("../resources/images/logo.png")} alt="logo" />
+          <img src={logo} alt="logo" />
         </div>
         <Menu>
           <MenuItem
