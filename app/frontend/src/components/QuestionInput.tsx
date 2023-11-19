@@ -42,7 +42,7 @@ const QuestionInput = ({onSend, isDisabled, placeholder, clearOnSend} : Question
     const sendQuestionDisabled = isDisabled || !question.trim();
 
     return (
-        <Stack horizontal className="rounded-lg shadow-lg bg-white m-8">
+        <Stack horizontal className="rounded-lg shadow-lg bg-white m-8 focus:border-2 focus:border-gray-800">
             <TextField
                 className="w-full px-4 leading-6"
                 placeholder={placeholder}
@@ -53,7 +53,7 @@ const QuestionInput = ({onSend, isDisabled, placeholder, clearOnSend} : Question
                 onChange={onQuestionChange}
                 onKeyDown={onEnterPress}
             />
-            <div>
+            <div className="pr-2">
                 <div
                     className={`cursor-pointer mt-4 ${sendQuestionDisabled ?? "opacity-40"}`}
                     aria-label="Ask question button"
