@@ -1,6 +1,7 @@
 import { faRobot, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as UserIcon } from "@fortawesome/react-fontawesome";
 import { FontAwesomeIcon as BotIcon } from "@fortawesome/react-fontawesome";
+import BotThinking from "./BotThinking";
 export interface Message {
   id?: number;
   text: string;
@@ -54,14 +55,7 @@ const ChatMessages = ({ messages, loadingAnswer }: ChatMessagesProps) => {
         </div>
       ))}
       {messages[messages.length - 1]?.sender === "user" && loadingAnswer ? (
-        <div className="flex flex-row-reverse">
-          <BotIcon icon={faRobot} size="2xl" className="pl-4 pt-6 self-end" />
-          <div className="flex flex-row gap-2">
-            <div className="w-4 h-4 rounded-full bg-blue-100 animate-bounce [animation-delay:.7s]"></div>
-            <div className="w-4 h-4 rounded-full bg-blue-200 animate-bounce [animation-delay:.3s]"></div>
-            <div className="w-4 h-4 rounded-full bg-blue-300 animate-bounce [animation-delay:.7s]"></div>
-          </div>
-        </div>
+        <BotThinking />
       ) : (
         <></>
       )}
