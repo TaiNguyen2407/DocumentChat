@@ -13,7 +13,7 @@ model = GPT4All(model_name=chat_model)
 
 @app.route('/')
 def chat():
-    print("hello world")
+    return "hello world"
 
     
 def generate_answer_from_chat_model(question: str, conversation_history: list, temp: int = 0):
