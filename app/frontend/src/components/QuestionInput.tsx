@@ -44,6 +44,7 @@ const QuestionInput = ({onSend, isDisabled, placeholder, clearOnSend} : Question
     return (
         <Stack horizontal className="rounded-lg shadow-lg bg-white m-8 focus:border-2 focus:border-gray-800">
             <TextField
+                id="questionInput"
                 className="w-full px-4 leading-6"
                 placeholder={placeholder}
                 multiline
