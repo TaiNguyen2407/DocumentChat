@@ -1,5 +1,4 @@
 import pytest
-from flask import Flask
 from app.backend.app import app, generate_answer_from_chat_model
 
 
