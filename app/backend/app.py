@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request
-import dotenv, requests
 from flask_cors import CORS
 from gpt4all import GPT4All
 
