@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './pages/Layout';
 import Chat from './pages/Chat';
 import Info from './pages/Info';
+import DocumentChat from './pages/DocumentChat';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -22,6 +23,7 @@ export default function App() {
         <Route path='/' element={<Layout />}>
           <Route index path='' element={<Chat />} />
           <Route path='info' element={<Info />} />
+          <Route path='documentChat' element={<DocumentChat />} />
         </Route>
       </Routes>
     </BrowserRouter>

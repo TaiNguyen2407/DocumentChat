@@ -33,6 +33,9 @@ const Layout = () => {
                     <MenuItem icon={<ChatIcon icon={faMessage} /> } component={<Link to='/'/>}> 
                         Chat
                     </MenuItem>
+                    <MenuItem icon={<ChatIcon icon={faMessage} /> } component={<Link to='/documentChat'/>}> 
+                       Document Chat
+                    </MenuItem>
                 </Menu>
             </div>
           </div>
