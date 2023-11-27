@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request
-import dotenv, requests
 from flask_cors import CORS
 from gpt4all import GPT4All
 
@@ -13,7 +12,7 @@ model = GPT4All(model_name=chat_model)
 
 @app.route('/')
 def chat():
-    print("hello world")
+    return "hello world"
 
     
 def generate_answer_from_chat_model(question: str, conversation_history: list, temp: int = 0):
