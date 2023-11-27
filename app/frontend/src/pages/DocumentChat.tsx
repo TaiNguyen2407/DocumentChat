@@ -38,15 +38,23 @@ const DocumentChat = () => {
   };
 
   const uploadDocument = (file: File) => {
-    console.log("file: ", file);
-    setFile(file);
-    setFileUploaded(true);
+    try {
+      if (file.type === "application/pdf") {
+        console.log("file: ", file);
+        setFile(file);
+        setFileUploaded(true);
+      } else {
+        console.log("please upload correct file");
+      }
+    } catch (e) {
+      console.log("error: ", e);
+    }
   };
 
   return (
     <div className="h-full my-5 border border-solid mx-20 bg-gray-50 flex flex-col justify-between overflow-hidden border shadow-lg rounded-lg 2xl:mx-60">
-      {fileUploaded ? (
-        <FileDetail file={file!} />
+      {fileUploaded && file !== undefined ? (
+        <FileDetail file={file} />
       ) : (
         <UploadDocument uploadDocument={uploadDocument} />
       )}

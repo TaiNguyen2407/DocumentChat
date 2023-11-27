@@ -24,6 +24,7 @@ const UploadDocument = ({uploadDocument} : UploadDocumentProps ) => {
             type="file"
             id="picture"
             onChange={handleFileChange}
+            accept="application/pdf"
           />
         </div>
         <button
