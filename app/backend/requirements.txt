@@ -3,12 +3,6 @@ Flask==2.2.2
 Flask-Cors==4.0.0
 gpt4all==2.0.2
 huggingface-hub==0.19.4
-langchain==0.0.340
-langsmith==0.0.66
-numpy==1.25.1
-openai==0.27.7
-pydantic==2.4.2
-pydantic_core==2.10.1
+langchain==0.0.234
 pytest==7.4.3
 sentence-transformers==2.2.2
-Werkzeug==2.3.7
