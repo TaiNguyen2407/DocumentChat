@@ -1,5 +1,5 @@
-import { BaseUrl } from "../constants";
-import { AskRequest } from "./models";
+import { BaseUrl, LoginUrl } from "../constants";
+import { AskRequest, UserDetails } from "./models";
 
 export async function postMessageToBackendApi(messageToBackend: AskRequest) {
     try {
@@ -40,6 +40,31 @@ export async function getMessagesFromBackendApi() {
             throw Error(parsedRepsonse.error || "unknown error");
         }
         return parsedRepsonse[parsedRepsonse.length - 1];
+    } catch (error: unknown) {
+        console.error("error fetching data", error);
+        if (typeof error === "object" && error !== null && "message" in error) {
+            return error.message as string;
+        } else {
+            return "An unknown error occurred";
+        }
+    }
+}
+
+export async function postMessageToLoginApi(userCredentials: UserDetails) {
+    try {
+        const response = await fetch(LoginUrl, {
+            method: "POST",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(userCredentials)
+        })
+
+        const parsedRepsonse = await response.json();
+        if (response.status > 299 || !response.ok) {
+            throw Error(parsedRepsonse.error || "unknown error");
+        }
+        return parsedRepsonse;
     } catch (error: unknown) {
         console.error("error fetching data", error);
         if (typeof error === "object" && error !== null && "message" in error) {
