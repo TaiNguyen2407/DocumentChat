@@ -1,6 +1,10 @@
 import { useState } from "react";
 import ChatMessages, { Message } from "../components/ChatMessages";
-import { getMessagesFromBackendApi, postMessageToBackendApi } from "../api/api";
+import {
+  getMessagesFromBackendApi,
+  postDocumentToBackendApi,
+  postMessageToBackendApi,
+} from "../api/api";
 import { UserRoles } from "../api/models";
 import QuestionInput from "../components/QuestionInput";
 import UploadDocument from "../components/UploadDocument";
@@ -37,12 +41,20 @@ const DocumentChat = () => {
     }
   };
 
-  const uploadDocument = (file: File) => {
+  const uploadDocument = async (file: File) => {
     try {
       if (file.type === "application/pdf") {
         console.log("file: ", file);
         setFile(file);
         setFileUploaded(true);
+        const formData = new FormData();
+        formData.append("file", file);
+        try {
+          const response = await postDocumentToBackendApi(formData);
+          console.log("response: ", response);
+        } catch (e) {
+          console.warn("Document upload unsuccessful", e);
+        }
       } else {
         console.log("please upload correct file");
       }
