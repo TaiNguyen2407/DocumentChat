@@ -1,9 +1,10 @@
 import { faRobot, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as UserIcon } from "@fortawesome/react-fontawesome";
 import { FontAwesomeIcon as BotIcon } from "@fortawesome/react-fontawesome";
+
 export interface Message {
   id?: number;
-  text: string;
+  content: string;
   sender: "user" | "assistant";
 }
 
@@ -13,7 +14,7 @@ interface ChatMessagesProps {
 }
 
 const ChatMessages = ({ messages, loadingAnswer }: ChatMessagesProps) => {
-
+  
   return (
     <div className="h-full w-full flex-1 overflow-y-auto p-4">
       {messages.map((message) => (
@@ -31,7 +32,7 @@ const ChatMessages = ({ messages, loadingAnswer }: ChatMessagesProps) => {
                   "w-fit max-w-xl mb-4 p-1.5 rounded-tr-lg rounded-tl-lg rounded-br-lg border shadow-lg bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r text-[#fff] text-lg"
                 }
               >
-                {message.text}
+                {message.content}
               </div>
             </div>
           ) : (
@@ -47,7 +48,7 @@ const ChatMessages = ({ messages, loadingAnswer }: ChatMessagesProps) => {
                   "w-fit max-w-xl mb-4 p-1.5 rounded-tr-lg rounded-tl-lg rounded-bl-lg bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300 text-gray-800 text-lg"
                 }
               >
-                {message.text}
+                {message.content}
               </div>
             </div>
           )}

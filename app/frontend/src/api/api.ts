@@ -26,7 +26,7 @@ export async function postMessageToBackendApi(messageToBackend: AskRequest) {
     }
 }
 
-export async function getMessagesFromBackendApi() {
+export async function getNewMessageFromBackendApi() {
     try {
         const response = await fetch(BaseUrl + '/api/chat/all-messages', {
             method: "GET",
@@ -40,6 +40,30 @@ export async function getMessagesFromBackendApi() {
             throw Error(parsedRepsonse.error || "unknown error");
         }
         return parsedRepsonse[parsedRepsonse.length - 1];
+    } catch (error: unknown) {
+        console.error("error fetching data", error);
+        if (typeof error === "object" && error !== null && "message" in error) {
+            return error.message as string;
+        } else {
+            return "An unknown error occurred";
+        }
+    }
+}
+
+export async function getAllMessagesFromBackendApi() {
+    try {
+        const response = await fetch(BaseUrl + '/api/chat/all-messages', {
+            method: "GET",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        })
+
+        const parsedRepsonse = await response.json();
+        if (response.status > 299 || !response.ok) {
+            throw Error(parsedRepsonse.error || "unknown error");
+        }
+        return parsedRepsonse;
     } catch (error: unknown) {
         console.error("error fetching data", error);
         if (typeof error === "object" && error !== null && "message" in error) {
