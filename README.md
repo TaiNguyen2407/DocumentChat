@@ -12,7 +12,7 @@ Document Chat is a project developed under Metropolia University of Applied Scie
 
 - [Features](#features)
 - [Technologies](#technologies)
-- [Instalation steps](#instalation)
+- [Installation steps](#instalation)
 
 ## Features:
 1. **Login, Logout**: Users can login and logout using their metropolia credentials.
@@ -34,4 +34,4 @@ Document Chat is a project developed under Metropolia University of Applied Scie
 - GPT4All chat model: Mini Orca 3b
 - Embedding model: Llama.cpp, llama2 7b
 
-## Instalation steps:
+## Installation steps:
