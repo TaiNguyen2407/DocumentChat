@@ -81,8 +81,8 @@ const Login = () => {
                 {error}
               </div>
               <div className="w-full grid place-items-center">
-                <button className=" justify-center items-center my-8 gap-2 w-28 h-12 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-gray-700 via-gray-900 to-black hover:shadow-xl hover:shadow-gray-500 hover:scale-105 duration-300 hover:from-gray-600 hover:to-gray-900">
-                  Submit
+                <button className=" justify-center items-center my-8 gap-2 w-28 h-12 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-gray-700 via-gray-900 to-black hover:shadow-xl hover:shadow-gray-500 hover:scale-105 duration-300 hover:from-gray-600 hover:to-gray-900" id="login">
+                  Log in
                 </button>
               </div>
             </form>

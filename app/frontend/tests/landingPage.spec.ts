@@ -23,10 +23,20 @@ test('has logo', async ({page}) => {
 test('has input textbox', async ({page}) => {
     await page.goto('http://localhost:3000');
 
-    const elementId = 'questionInput';
+    const elementId = 'username';
     const existence = await page.$(`#${elementId}`);
 
     await expect(existence).toBeTruthy();
+
+});
+
+test('has input login button', async ({page}) => {
+  await page.goto('http://localhost:3000');
+
+  const elementId = 'login';
+  const existence = await page.$(`#${elementId}`);
+
+  await expect(existence).toBeTruthy();
 
 });
 
@@ -37,7 +47,7 @@ test ('has placeholder', async ({page}) => {
 const pageContent = await page.textContent('body');
 
 // Text to check for within the page content
-const textToFind = 'Chat';
+const textToFind = 'Welcome';
 
 // Check if the text exists within the page content
 const isTextPresent = pageContent!.includes(textToFind);
