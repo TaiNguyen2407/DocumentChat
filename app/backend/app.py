@@ -17,9 +17,7 @@ data = []
 app.config['UPLOAD_FOLDER'] = './docs'
 ALLOWED_EXTENSIONS = 'pdf'
 local_index_folder = 'document_index'
-
-llama_2_7b_chat_path = 'path to your llama_2_7b_model'
-embeddings = LlamaCppEmbeddings(model_path=llama_2_7b_chat_path)
+llama_2_7b_chat_path = './models/llama-2-7b-chat.ggmlv3.q2_K.bin'
 
 chat_model = "orca-mini-3b-gguf2-q4_0.gguf"
 model = GPT4All(model_name=chat_model)
@@ -57,6 +55,7 @@ def create_index_for_uploaded_document(file) -> FAISS:
     loader = PyPDFLoader(app.config['UPLOAD_FOLDER'] + '/' + file.filename)
     docs = loader.load()
     chunks = split_chunks(docs)
+    embeddings = LlamaCppEmbeddings(model_path=llama_2_7b_chat_path)
     index = create_index(chunks, embeddings)
     return index
 
@@ -114,6 +113,7 @@ Answer: Let's think step by step.
 @app.route('/api/chat/document-chat', methods=["POST"])
 def chat_with_document():
     question_from_frontend = request.json["question"]
+    embeddings = LlamaCppEmbeddings(model_path=llama_2_7b_chat_path)
     response = generate_answer_from_loaded_document(local_index_folder, embeddings, question_from_frontend, template, init_llama_model())
     print(response)
     data_to_send_back = {"sender" : "assistant", "content" : response}
