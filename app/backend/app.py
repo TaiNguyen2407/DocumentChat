@@ -10,7 +10,7 @@ from langchain.vectorstores.faiss import FAISS
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.llms import LlamaCpp
-from logic.utils import generate_answer_from_chat_model, split_chunks, similarity_search, create_index, replace_folder_if_exists, is_file_size_valid
+from logic.utils import generate_answer_from_chat_model, split_chunks, create_index, replace_folder_if_exists, generate_answer_from_loaded_document
 
 
 app = Flask(__name__)
@@ -18,7 +18,6 @@ CORS(app)
 
 data = []
 app.config['UPLOAD_FOLDER'] = './docs'
-MAX_FILE_SIZE= app.config['MAX_CONTENT_LENGTH'] = 1 * 1000 * 1000 # max file size is around 1mb
 ALLOWED_EXTENSIONS = 'pdf'
 local_index_folder = 'document_index'
 
@@ -37,7 +36,7 @@ def chat():
 @app.route('/api/chat/all-messages', methods=["GET"])
 def chat_history():
     return data
-    
+
 
 @app.route('/api/chat/user-question', methods=["POST"])
 def handle_frontend_request():
@@ -77,13 +76,9 @@ def handle_upload_file():
         return 'No file part'
 
     file = request.files['file']
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
 
     if file.filename == '':
         return 'No selected file'
-
-    if not is_file_size_valid(file_path, MAX_FILE_SIZE):
-        return 'File size exceeds the allowed limit'
 
     if file and allowed_file(file.filename): 
         file.save(app.config['UPLOAD_FOLDER'] + '/' + file.filename)
@@ -94,7 +89,7 @@ def handle_upload_file():
     return 'File not allowed'
     
 
-def init_llama_model():
+def init_llama_model() -> LlamaCpp:
     callback_manager = CallbackManager([StreamingStdOutCallbackHandler])
     llm = LlamaCpp(
         model_path=llama_2_7b_chat_path, 
@@ -109,6 +104,7 @@ def init_llama_model():
     )   
     return llm
 
+
 template = """
 Please use the following context to answer questions.
 Context: {context}
@@ -117,15 +113,18 @@ Question: {question}
 Answer: Let's think step by step.
 """
 
-question = "what is the article about ?"
 
+@app.route('/api/chat/document-chat', methods=["POST"])
 def chat_with_document():
-    loaded_index = FAISS.load_local(f'./{local_index_folder}', embeddings)
-    matched_docs = similarity_search(question, loaded_index)
-    context = "\n".join([doc.page_content for doc in matched_docs])
-    prompt = PromptTemplate(template=template, input_variables=["context", "question"]).partial(context=context)
-    llm_chain = LLMChain(prompt=prompt, llm=init_llama_model())
-    print(llm_chain.run(question))
+    question_from_frontend = request.json["question"]
+    response = generate_answer_from_loaded_document(local_index_folder, embeddings, question_from_frontend, template, init_llama_model())
+    print(response)
+    data_to_send_back = {"sender" : "assistant", "content" : response}
+    chat_user = {"sender" : "user", "content" : question_from_frontend}
+    chat_bot = data_to_send_back
+    data.append(chat_user)
+    data.append(chat_bot)
+    return jsonify(data_to_send_back)
 
 
 if __name__ == "__main__":

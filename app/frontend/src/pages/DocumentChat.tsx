@@ -3,7 +3,7 @@ import ChatMessages, { Message } from "../components/ChatMessages";
 import {
   getMessagesFromBackendApi,
   postDocumentToBackendApi,
-  postMessageToBackendApi,
+  postDocumentRelatedQuestionToBackendApi
 } from "../api/api";
 import { UserRoles } from "../api/models";
 import QuestionInput from "../components/QuestionInput";
@@ -26,7 +26,7 @@ const DocumentChat = () => {
     setIsLoading(true);
 
     try {
-      await postMessageToBackendApi({ question: text, role: UserRoles.User });
+      await postDocumentRelatedQuestionToBackendApi({ question: text, role: UserRoles.User });
       const botMessage = await getMessagesFromBackendApi();
       const newMessageBot: Message = {
         id: messages.length + 2,

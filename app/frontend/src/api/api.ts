@@ -95,3 +95,29 @@ export async function postDocumentToBackendApi(data: FormData) {
     }
   }
 }
+
+
+export async function postDocumentRelatedQuestionToBackendApi(questionToBackend: AskRequest) {
+  try {
+    const response = await fetch(BaseUrl + "/api/chat/document-chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(questionToBackend),
+    });
+
+    const parsedRepsonse = await response.json();
+    if (response.status > 299 || !response.ok) {
+      throw Error(parsedRepsonse.error || "unknown error");
+    }
+    return parsedRepsonse;
+  } catch (error: unknown) {
+    console.error("error fetching data", error);
+    if (typeof error === "object" && error !== null && "message" in error) {
+      return error.message as string;
+    } else {
+      return "An unknown error occurred";
+    }
+  }
+}

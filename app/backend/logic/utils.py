@@ -4,6 +4,9 @@ from langchain.text_splitter import  RecursiveCharacterTextSplitter
 from langchain.vectorstores.faiss import FAISS
 from langchain.embeddings import LlamaCppEmbeddings
 from gpt4all import GPT4All
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
+from langchain.llms import LlamaCpp
 
 
 def replace_folder_if_exists(folder_path):
@@ -19,8 +22,6 @@ def replace_folder_if_exists(folder_path):
     # Create a new folder
     os.makedirs(folder_path)
 
-def is_file_size_valid(file_path, max_size: int):
-    return os.path.getsize(file_path) <= max_size
 
 def generate_answer_from_chat_model(model: GPT4All, question: str, conversation_history: list, temp: int = 0):
     context = " ".join([msg["content"] for msg in conversation_history])
@@ -36,12 +37,15 @@ def split_chunks(sources: List[str]):
         chunks.append(chunk)
     return chunks
 
+
 def create_index(chunks: List[str], embeddings: LlamaCppEmbeddings):
+    print('*** Start creating index for chunks *** ')
+
     texts = [doc.page_content for doc in chunks]
     metadatas = [doc.metadata for doc in chunks]
-
     search_index = FAISS.from_texts(texts, embeddings, metadatas=metadatas)
-
+    
+    print('*** Creating index for chunks finished *** ')
     return search_index
 
 
@@ -55,5 +59,13 @@ def similarity_search(query: str, index: FAISS):
                 "metadata": doc.metadata,
             }
         )
-
     return matched_docs, sources
+
+
+def generate_answer_from_loaded_document(local_index_folder: str, embeddings: LlamaCppEmbeddings, question: str, template: str, llm: LlamaCpp):
+    loaded_index = FAISS.load_local(f'./{local_index_folder}', embeddings)
+    matched_docs, sources = similarity_search(question, loaded_index)
+    context = "\n".join([doc.page_content for doc in matched_docs])
+    prompt = PromptTemplate(template=template, input_variables=["context", "question"]).partial(context=context)
+    llm_chain = LLMChain(prompt=prompt, llm=llm)
+    return llm_chain.run(question)
