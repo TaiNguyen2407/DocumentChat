@@ -50,17 +50,13 @@ const Info = () => {
             </strong>
             <ol className="text-lg pb-4">
               <li>
+                Send a message asking basic question and the bot will provide an asnwer.
                 Upload a document by clicking the "Upload document" button. Wait
                 until upload is done and input field appears.
               </li>
               <li>Write your question related to the document. </li>
               <li>
-                If the chat gives you a good answer, please click the "thumbs
-                up" icon on the right upper corner of the chatbot assistant
-                answer. If the answer is wrong, please click the "thumbs down"
-                icon, and leave feedback on what was wrong. After you have given
-                feedback, the conversation is stored anonymously into AWS, where
-                we can monitor the performance and adjust the application.
+                The conversation is stored as chat history.
               </li>
             </ol>
           </div>
