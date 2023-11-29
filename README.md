@@ -44,6 +44,7 @@ Document Chat is a project developed under Metropolia University of Applied Scie
 - Clone the project
 - Open 2 terminals
 - Navigate 1 terminal to backend folder:
+    * Create models folder 
     * Place newly downloaded file to models folder in backend
     * pip install -r requirements.txt
     * python app.py
