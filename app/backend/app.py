@@ -7,8 +7,6 @@ from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.embeddings import LlamaCppEmbeddings
 from langchain.vectorstores.faiss import FAISS
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
 from langchain.llms import LlamaCpp
 from logic.utils import generate_answer_from_chat_model, split_chunks, create_index, replace_folder_if_exists, generate_answer_from_loaded_document
 
@@ -21,7 +19,7 @@ app.config['UPLOAD_FOLDER'] = './docs'
 ALLOWED_EXTENSIONS = 'pdf'
 local_index_folder = 'document_index'
 
-llama_2_7b_chat_path = 'models/llama-2-7b-chat.ggmlv3.q2_K.bin'
+llama_2_7b_chat_path = 'path to your llama_2_7b_model'
 embeddings = LlamaCppEmbeddings(model_path=llama_2_7b_chat_path)
 
 chat_model = "orca-mini-3b-gguf2-q4_0.gguf"
