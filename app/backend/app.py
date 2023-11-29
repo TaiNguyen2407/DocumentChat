@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-import os
 from gpt4all import GPT4All
 from langchain.document_loaders import PyPDFLoader
 from langchain.callbacks.manager import CallbackManager
