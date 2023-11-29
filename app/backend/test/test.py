@@ -1,5 +1,7 @@
 import pytest
-from app.backend.app import app, generate_answer_from_chat_model
+from backend.app import app
+from backend.logic.utils import generate_answer_from_chat_model
+
 
 
 @pytest.fixture
