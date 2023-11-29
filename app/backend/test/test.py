@@ -1,5 +1,7 @@
 import pytest
-from app.backend.app import app, generate_answer_from_chat_model
+from app.backend.app import app, model
+from app.backend.logic.utils import generate_answer_from_chat_model
+
 
 
 @pytest.fixture
@@ -31,7 +33,7 @@ def test_generate_answer_from_chat_model():
 
     question = "What is the capital of Finland?"
 
-    response = generate_answer_from_chat_model(question, conversation_history)
+    response = generate_answer_from_chat_model(model, question, conversation_history=conversation_history)
 
     assert isinstance(response, str)
     assert len(response) > 0
