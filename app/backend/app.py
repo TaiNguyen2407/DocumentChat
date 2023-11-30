@@ -28,34 +28,61 @@ def generate_answer_from_chat_model(question: str, conversation_history: list, t
         return model.generate(prompt=f"{context}\nUser: {question}", temp=temp)
     
 
-@app.route('/api/chat/all-messages', methods=["GET"])
+# @app.route('/api/chat/all-messages', methods=["GET"])
+# def chat_history():
+#     messages = Message.query.all()
+#     data = [{"sender": msg.sender, "content": msg.content} for msg in messages]
+#     return jsonify(data)
+# @app.route('/api/chat_history/', methods=["GET"])
+# def get_chat_history(chat_id):
+#     messages = Message.query.filter_by(session=chat_id).all()
+#     data = [msg.to_dict() for msg in messages]
+#     return jsonify(data)
+
+@app.route('/api/chat_history', methods=["GET"])
 def chat_history():
-    messages = Message.query.all()
-    data = [{"sender": msg.sender, "content": msg.content} for msg in messages]
+    chat_id = request.args.get("chat_id")
+    messages = Message.query.filter_by(session=chat_id).all()
+    data = [msg.to_dict() for msg in messages]
     return jsonify(data)
 
-def message_to_dict(message):
-    return {"sender": message.sender, "content": message.content}
 
+# @app.route('/api/chat/user-question', methods=["POST"])
+# def handle_frontend_request():
+#     question_from_frontend = request.json["question"]
+#     conversation_history = Message.query.all()
 
+#     response = generate_answer_from_chat_model(question_from_frontend, conversation_history)
+#     print(response)
+
+#     chat_user = Message(sender="user", content=question_from_frontend)
+#     chat_bot = Message(sender="assistant", content=response)
+
+#     db.session.add(chat_user)
+#     db.session.add(chat_bot)
+#     db.session.commit()
+
+#     chat_bot_dict = message_to_dict(chat_bot)
+
+#     return jsonify(chat_bot_dict)
 @app.route('/api/chat/user-question', methods=["POST"])
 def handle_frontend_request():
     question_from_frontend = request.json["question"]
-    conversation_history = Message.query.all()
+    chat_id = request.args.get("chat_id")
+
+    conversation_history = Message.query.filter_by(session=chat_id).all()
 
     response = generate_answer_from_chat_model(question_from_frontend, conversation_history)
     print(response)
 
-    chat_user = Message(sender="user", content=question_from_frontend)
-    chat_bot = Message(sender="assistant", content=response)
+    chat_user = Message(sender="user", content=question_from_frontend, session=chat_id)
+    chat_bot = Message(sender="assistant", content=response, session=chat_id)
 
     db.session.add(chat_user)
     db.session.add(chat_bot)
     db.session.commit()
 
-    chat_bot_dict = message_to_dict(chat_bot)
-
-    return jsonify(chat_bot_dict)
+    return jsonify(chat_bot.to_dict())
 
 
 if __name__ == "__main__":
