@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Layout from './pages/Layout';
 import Chat from './pages/Chat';
 import Info from './pages/Info';
@@ -20,7 +20,9 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route index path='' element={<Chat />} />
+          {/* <Route index path='' element={<Chat />} /> */}
+          <Route index element={<Navigate to="/chat/1" replace />} />
+          <Route path='chat/:id' element={<Chat />} />
           <Route path='info' element={<Info />} />
         </Route>
       </Routes>
