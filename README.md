@@ -12,7 +12,7 @@ Document Chat is a project developed under Metropolia University of Applied Scie
 
 - [Features](#features)
 - [Technologies](#technologies)
-- [Installation steps](#installation)
+- [Installation steps](#installation-steps)
 - [Disclaimers](#disclaimers)
 
 ## Features:
