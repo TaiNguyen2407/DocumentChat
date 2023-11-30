@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback  } from 'react';
 import { useParams } from 'react-router-dom';
 import { postMessageToBackendApi, getNewMessageFromBackendApi, getAllMessagesFromBackendApi } from '../api/api';
 import { UserRoles } from '../api/models';
@@ -7,22 +7,22 @@ import QuestionInput from '../components/QuestionInput';
 
 const Chat = () => {
     const { id } = useParams<{ id: string }>();
-    const chatId = parseInt(id, 10);
+    const chatId = id ? parseInt(id, 10) : 1;
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const fetchChatHistory = async () => {
+    const fetchChatHistory = useCallback(async () => {
         try {
             const chatHistory = await getAllMessagesFromBackendApi(chatId);
             setMessages(Array.isArray(chatHistory) ? chatHistory : []);
         } catch (error) {
             console.log(error);
         }
-    };
-
+    }, [chatId]);
+    
     useEffect(() => {
         fetchChatHistory();
-    }, [chatId]);
+    }, [chatId, fetchChatHistory]);
 
     const onSendTextMessage = async (text: string) => {
         const newMessage: Message = { id: messages.length + 1, content: text, sender: 'user', session: chatId };

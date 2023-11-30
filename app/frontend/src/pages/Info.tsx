@@ -27,18 +27,19 @@ const Info = () => {
               <h2>What documents can I use with Document Chat Application?</h2>
             </strong>
             <p className="text-lg pb-4">
-              You can use <strong>Word (.docx) or PDF (.pdf)</strong> documents.
-              Please make sure to upload only Word (.docx) or PDF (.pdf) files,{" "}
+              You can use <strong> PDF (.pdf)</strong> documents.
+              Please make sure to upload only PDF (.pdf) files,{" "}
               <strong>other file types will not be accepted.</strong>
             </p>
             <strong className="inline text-2xl">
               <h2>How does Document Chat Application work?</h2>
             </strong>
             <p className="text-lg pb-4">
-              Document Chat Application utilizes the ChatGPT offered by
-              Microsoft Azure, ensuring we have appropriate data NDA. The chat
+              Document Chat Application utilizes the GPT4All created by
+              Nomic AI, an information cartography company that aims to improve access to AI resources. The chat
+              is designed to run without the need of GPU, and it
               stores the latest document sent by user in user-level isolated
-              data storage in AWS
+              data storage.
             </p>
             <strong className="inline text-xl">
               You can only see the documents that you have uploaded yourself. No
@@ -49,17 +50,13 @@ const Info = () => {
             </strong>
             <ol className="text-lg pb-4">
               <li>
+                Send a message asking basic question and the bot will provide an asnwer.
                 Upload a document by clicking the "Upload document" button. Wait
                 until upload is done and input field appears.
               </li>
               <li>Write your question related to the document. </li>
               <li>
-                If the chat gives you a good answer, please click the "thumbs
-                up" icon on the right upper corner of the chatbot assistant
-                answer. If the answer is wrong, please click the "thumbs down"
-                icon, and leave feedback on what was wrong. After you have given
-                feedback, the conversation is stored anonymously into AWS, where
-                we can monitor the performance and adjust the application.
+                The conversation is stored as chat history.
               </li>
             </ol>
           </div>
