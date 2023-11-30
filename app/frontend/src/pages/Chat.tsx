@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { postMessageToBackendApi, getNewMessageFromBackendApi, getAllMessagesFromBackendApi } from '../api/api';
 import { UserRoles } from '../api/models';
 import ChatMessages, { Message } from '../components/ChatMessages';
 import QuestionInput from '../components/QuestionInput';
 
 const Chat = () => {
+    const { id } = useParams<{ id: string }>();
+    const chatId = parseInt(id, 10);
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const fetchChatHistory = async () => {
         try {
-            const initialMessages = await getAllMessagesFromBackendApi();
-            setMessages(Array.isArray(initialMessages) ? initialMessages : []);
+            const chatHistory = await getAllMessagesFromBackendApi(chatId);
+            setMessages(Array.isArray(chatHistory) ? chatHistory : []);
         } catch (error) {
             console.log(error);
         }
@@ -19,16 +22,16 @@ const Chat = () => {
 
     useEffect(() => {
         fetchChatHistory();
-    }, []);
+    }, [chatId]);
 
     const onSendTextMessage = async (text: string) => {
-        const newMessage: Message = { id: messages.length + 1, content: text, sender: 'user' };
+        const newMessage: Message = { id: messages.length + 1, content: text, sender: 'user', session: chatId };
         setMessages((prevMessages) => [...prevMessages, newMessage]);
         setIsLoading(true);
 
         try {
-            await postMessageToBackendApi({ question: text, role: UserRoles.User });
-            const newMessageBot = await getNewMessageFromBackendApi();
+            await postMessageToBackendApi({ question: text, role: UserRoles.User }, chatId);
+            const newMessageBot = await getNewMessageFromBackendApi(chatId);
             setMessages((prevMessages) => [...prevMessages, newMessageBot]);
         } catch (error) {
             console.log(error);
