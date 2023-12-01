@@ -41,7 +41,7 @@ def chat_history():
     return jsonify(data)
 
 @app.route('/api/chat/all-messages', methods=["GET"])
-def chat_history():
+def chat_history_document():
     return data
 
 @app.route('/api/chat/user-question', methods=["POST"])
