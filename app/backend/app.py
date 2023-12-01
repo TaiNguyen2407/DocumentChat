@@ -40,6 +40,10 @@ def chat_history():
     data = [msg.to_dict() for msg in messages]
     return jsonify(data)
 
+@app.route('/api/chat/all-messages', methods=["GET"])
+def chat_history():
+    return data
+
 @app.route('/api/chat/user-question', methods=["POST"])
 def handle_frontend_request():
     question_from_frontend = request.json["question"]
