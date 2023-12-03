@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from database.models import db, Message
 from gpt4all import GPT4All
 from langchain.document_loaders import PyPDFLoader
 from langchain.callbacks.manager import CallbackManager
@@ -12,6 +13,21 @@ from logic.utils import generate_answer_from_chat_model, split_chunks, create_in
 
 app = Flask(__name__)
 CORS(app)
+
+class Config:
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///chat_history.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+app.config.from_object(Config)
+
+db.init_app(app)
+
+@app.before_request
+def before_first_request():
+    if not getattr(app, '_database_initialized', False):
+        with app.app_context():
+            db.create_all()
+            app._database_initialized = True
 
 data = []
 app.config['UPLOAD_FOLDER'] = './docs'
@@ -28,22 +44,35 @@ def chat():
     return "hello world"
 
 
-@app.route('/api/chat/all-messages', methods=["GET"])
+@app.route('/api/chat-history', methods=["GET"])
 def chat_history():
-    return data
+    chat_id = request.args.get("chat-id")
+    messages = Message.query.filter_by(session=chat_id).all()
+    data = [msg.to_dict() for msg in messages]
+    return jsonify(data)
 
+@app.route('/api/chat/all-messages', methods=["GET"])
+def chat_history_document():
+    return data
 
 @app.route('/api/chat/user-question', methods=["POST"])
 def handle_frontend_request():
     question_from_frontend = request.json["question"]
-    response = generate_answer_from_chat_model(model, question_from_frontend, data)
+    chat_id = request.args.get("chat-id")
+
+    conversation_history = Message.query.filter_by(session=chat_id).all()
+
+    response = generate_answer_from_chat_model(model, question_from_frontend, conversation_history)
     print(response)
-    data_to_send_back = {"sender" : "assistant", "content" : response}
-    chat_user = {"sender" : "user", "content" : question_from_frontend}
-    chat_bot = data_to_send_back
-    data.append(chat_user)
-    data.append(chat_bot)
-    return jsonify(data_to_send_back)
+
+    chat_user = Message(sender="user", content=question_from_frontend, session=chat_id)
+    chat_bot = Message(sender="assistant", content=response, session=chat_id)
+
+    db.session.add(chat_user)
+    db.session.add(chat_bot)
+    db.session.commit()
+
+    return jsonify(chat_bot.to_dict())
 
 
 def allowed_file(filename):
@@ -123,8 +152,5 @@ def chat_with_document():
     data.append(chat_bot)
     return jsonify(data_to_send_back)
 
-
 if __name__ == "__main__":
     app.run(debug=True)
-
-

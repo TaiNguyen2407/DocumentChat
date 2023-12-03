@@ -8,14 +8,35 @@ import { FontAwesomeIcon as HamburgerMenuIcon } from "@fortawesome/react-fontawe
 import { FontAwesomeIcon as ChatIcon } from "@fortawesome/react-fontawesome";
 import { FontAwesomeIcon as InfoIcon } from "@fortawesome/react-fontawesome";
 import { FontAwesomeIcon as LogOutIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 import { Link, Outlet } from "react-router-dom";
 import logo from "../resources/images/logo.png";
 import { removeFromBrowserMemory } from "../utils/browserMemory";
 
+const CHAT_HISTORIES_KEY = "chatHistories";
+
+export interface ChatHistory {
+  id: number;
+  name: string;
+}
+
 const Layout = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const initialId = 1;
+  const [chatHistories, setChatHistories] = useState<ChatHistory[]>(() => {
+    const storedHistories = localStorage.getItem(CHAT_HISTORIES_KEY);
+    return storedHistories ? JSON.parse(storedHistories) : [
+      {
+        id: initialId,
+        name: `Chat ${initialId}`,
+      },
+    ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem(CHAT_HISTORIES_KEY, JSON.stringify(chatHistories));
+  }, [chatHistories]);
 
   const collapseHamburgerMenu = () => {
     setIsCollapsed(!isCollapsed);
@@ -28,6 +49,17 @@ const Layout = () => {
     } catch (e) {
       console.warn("Log out failed", e);
     }
+  };
+
+
+  const createNewChat = () => {
+    setChatHistories((prevHistories) => [
+      ...prevHistories,
+      {
+        id: prevHistories.length + 1,
+        name: `Chat ${prevHistories.length + 1}`,
+      },
+    ]);
   };
 
   return (
@@ -58,6 +90,17 @@ const Layout = () => {
                 >
                   Document Chat
                 </MenuItem>
+                    <MenuItem onClick={createNewChat}>
+                      New Chat
+                    </MenuItem>
+                    {chatHistories.map((chat) => (
+                      <MenuItem 
+                        icon={<ChatIcon icon={faMessage} /> } 
+                        key={chat.id} 
+                        component={<Link to={`/chat/${chat.id}`} />}>
+                        {chat.name}
+                      </MenuItem>
+                  ))}
               </Menu>
             </div>
           </div>

@@ -24,7 +24,7 @@ def replace_folder_if_exists(folder_path):
 
 
 def generate_answer_from_chat_model(model: GPT4All, question: str, conversation_history: list, temp: int = 0):
-    context = " ".join([msg["content"] for msg in conversation_history])
+    context = " ".join([msg.content for msg in conversation_history])
 
     with model.chat_session():
         return model.generate(prompt=f"{context}\nUser: {question}", temp=temp)

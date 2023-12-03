@@ -19,7 +19,7 @@ const DocumentChat = () => {
   const onSendTextMessage = async (text: string) => {
     const newMessage: Message = {
       id: messages.length + 1,
-      text,
+      content: text,
       sender: "user",
     };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -30,7 +30,7 @@ const DocumentChat = () => {
       const botMessage = await getMessagesFromBackendApi();
       const newMessageBot: Message = {
         id: messages.length + 2,
-        text: botMessage["content"],
+        content: botMessage["content"],
         sender: botMessage["sender"],
       };
       setMessages((prevMessages) => [...prevMessages, newMessageBot]);
