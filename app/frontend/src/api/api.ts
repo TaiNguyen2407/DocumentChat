@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from "axios";
 
 export async function postMessageToBackendApi(messageToBackend: AskRequest, chatId: number) {
     try {
-        const response = await fetch(BaseUrl + `/api/chat/user-question?chat_id=${chatId}`, {
+        const response = await fetch(BaseUrl + `/api/chat/user-question?chat-id=${chatId}`, {
             method: "POST",
             headers: {
                 'Content-Type' : 'application/json'
@@ -29,7 +29,7 @@ export async function postMessageToBackendApi(messageToBackend: AskRequest, chat
 
 export async function getNewMessageFromBackendApi(chatId: number) {
     try {
-        const response = await fetch(BaseUrl + `/api/chat_history?chat_id=${chatId}`, {
+        const response = await fetch(BaseUrl + `/api/chat-history?chat-id=${chatId}`, {
             method: "GET",
             headers: {
                 'Content-Type' : 'application/json'
@@ -53,7 +53,7 @@ export async function getNewMessageFromBackendApi(chatId: number) {
 
 export async function getAllMessagesFromBackendApi(chatId: number) {
     try {
-        const response = await fetch(BaseUrl + `/api/chat_history?chat_id=${chatId}`, {
+        const response = await fetch(BaseUrl + `/api/chat-history?chat-id=${chatId}`, {
             method: "GET",
             headers: {
                 'Content-Type' : 'application/json'

@@ -14,9 +14,20 @@ from logic.utils import generate_answer_from_chat_model, split_chunks, create_in
 app = Flask(__name__)
 CORS(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///chat_history.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+class Config:
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///chat_history.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+app.config.from_object(Config)
+
 db.init_app(app)
+
+@app.before_request
+def before_first_request():
+    if not getattr(app, '_database_initialized', False):
+        with app.app_context():
+            db.create_all()
+            app._database_initialized = True
 
 data = []
 app.config['UPLOAD_FOLDER'] = './docs'
@@ -33,9 +44,9 @@ def chat():
     return "hello world"
 
 
-@app.route('/api/chat_history', methods=["GET"])
+@app.route('/api/chat-history', methods=["GET"])
 def chat_history():
-    chat_id = request.args.get("chat_id")
+    chat_id = request.args.get("chat-id")
     messages = Message.query.filter_by(session=chat_id).all()
     data = [msg.to_dict() for msg in messages]
     return jsonify(data)
@@ -47,7 +58,7 @@ def chat_history_document():
 @app.route('/api/chat/user-question', methods=["POST"])
 def handle_frontend_request():
     question_from_frontend = request.json["question"]
-    chat_id = request.args.get("chat_id")
+    chat_id = request.args.get("chat-id")
 
     conversation_history = Message.query.filter_by(session=chat_id).all()
 
@@ -142,6 +153,4 @@ def chat_with_document():
     return jsonify(data_to_send_back)
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
