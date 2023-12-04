@@ -21,3 +21,7 @@ html {
 #root {
   height: 100%;
 }
+
+.react-icons {
+  color: black;
+}

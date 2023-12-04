@@ -67,7 +67,7 @@ const DocumentChat = () => {
   };
 
   return (
-    <div className="h-full my-5 border border-solid mx-20 bg-gray-50 flex flex-col justify-between overflow-hidden border shadow-lg rounded-lg 2xl:mx-60">
+    <div className="h-full my-5 border border-solid mx-20 bg-gray-50 flex flex-col justify-between overflow-hidden border shadow-lg rounded-lg xl:mx-40">
       {fileUploaded && file !== undefined ? (
         <FileDetail file={file} />
       ) : (
