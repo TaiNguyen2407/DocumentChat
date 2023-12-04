@@ -1,6 +1,7 @@
 import { BaseUrl, LoginUrl } from "../constants";
-import { AskRequest, UserDetails } from "./models";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
+import { AskRequest } from "../models/askRequest";
+import { UserDetails } from "../models/userDetails";
 
 export async function postMessageToBackendApi(messageToBackend: AskRequest, chatId: number) {
     try {

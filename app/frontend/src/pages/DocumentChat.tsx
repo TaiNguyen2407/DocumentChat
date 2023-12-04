@@ -3,12 +3,12 @@ import ChatMessages, { Message } from "../components/ChatMessages";
 import {
   getMessagesFromBackendApi,
   postDocumentToBackendApi,
-  postDocumentRelatedQuestionToBackendApi
+  postDocumentRelatedQuestionToBackendApi,
 } from "../api/api";
-import { UserRoles } from "../api/models";
 import QuestionInput from "../components/QuestionInput";
 import UploadDocument from "../components/UploadDocument";
 import FileDetail from "../components/FileDetail";
+import { UserRoles } from "../models/userRoles";
 
 const DocumentChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -26,7 +26,10 @@ const DocumentChat = () => {
     setIsLoading(true);
 
     try {
-      await postDocumentRelatedQuestionToBackendApi({ question: text, role: UserRoles.User });
+      await postDocumentRelatedQuestionToBackendApi({
+        question: text,
+        role: UserRoles.User,
+      });
       const botMessage = await getMessagesFromBackendApi();
       const newMessageBot: Message = {
         id: messages.length + 2,
@@ -45,12 +48,12 @@ const DocumentChat = () => {
     try {
       if (file.type === "application/pdf") {
         console.log("file: ", file);
-        setFile(file);
-        setFileUploaded(true);
         const formData = new FormData();
         formData.append("file", file);
         try {
           const response = await postDocumentToBackendApi(formData);
+          setFile(file);
+          setFileUploaded(true);
           console.log("response: ", response);
         } catch (e) {
           console.warn("Document upload unsuccessful", e);
@@ -64,7 +67,7 @@ const DocumentChat = () => {
   };
 
   return (
-    <div className="h-full my-5 border border-solid mx-20 bg-gray-50 flex flex-col justify-between overflow-hidden border shadow-lg rounded-lg 2xl:mx-60">
+    <div className="h-full my-5 border border-solid mx-20 bg-gray-50 flex flex-col justify-between overflow-hidden border shadow-lg rounded-lg xl:mx-40">
       {fileUploaded && file !== undefined ? (
         <FileDetail file={file} />
       ) : (

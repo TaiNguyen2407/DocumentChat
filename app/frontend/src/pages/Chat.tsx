@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback  } from 'react';
 import { useParams } from 'react-router-dom';
 import { postMessageToBackendApi, getNewMessageFromBackendApi, getAllMessagesFromBackendApi } from '../api/api';
-import { UserRoles } from '../api/models';
 import ChatMessages, { Message } from '../components/ChatMessages';
 import QuestionInput from '../components/QuestionInput';
+import { UserRoles } from '../models/userRoles';
 
 const Chat = () => {
     const { id } = useParams<{ id: string }>();
@@ -41,12 +41,12 @@ const Chat = () => {
     };
 
     return (
-        <div className="h-full my-5 border border-solid mx-20 bg-gray-50 flex flex-col justify-between overflow-hidden border shadow-lg rounded-lg 2xl:mx-60">
+        <div className="h-full my-5 border border-solid mx-20 bg-gray-50 flex flex-col justify-between overflow-hidden border shadow-lg rounded-lg xl:mx-40">
             <ChatMessages messages={messages} loadingAnswer={isLoading} />
             <QuestionInput
                 onSend={onSendTextMessage}
                 isDisabled={isLoading}
-                placeholder='Type a new question (e.g. what is this data about?)'
+                placeholder='Type a new question'
                 clearOnSend
             />
         </div>

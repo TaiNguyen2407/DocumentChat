@@ -32,7 +32,7 @@ const UploadDocument = ({uploadDocument} : UploadDocumentProps ) => {
             selectedFile != null
               ? "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500  hover:scale-105 duration-200 hover:drop-shadow-2xl hover:shadow-[#7dd3fc] hover:cursor-pointer"
               : "bg-gray-500"
-          }`}
+          } md:text-sm sm:text-xs`}
           onClick={() => uploadDocument(selectedFile!)}
         >
           Upload
