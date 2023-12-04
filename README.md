@@ -12,7 +12,7 @@ Document Chat is a project developed under Metropolia University of Applied Scie
 
 - [Features](#features)
 - [Technologies](#technologies)
-- [Installation steps](#installation)
+- [Installation steps](#installation-steps)
 - [Disclaimers](#disclaimers)
 
 ## Features:
@@ -44,13 +44,14 @@ Document Chat is a project developed under Metropolia University of Applied Scie
 - Clone the project
 - Open 2 terminals
 - Navigate 1 terminal to backend folder:
-    * Create models folder 
-    * Place newly downloaded file to models folder in backend
-    * pip install -r requirements.txt
-    * python app.py
+    * Create `docs` folder
+    * Create `models` folder
+    * Place newly downloaded file to `models` folder in backend
+    * `pip install -r requirements.txt`
+    * `python app.py`
 - Navigate 1 terminal to frontend folder:
-    * npm install
-    * npm start
+    * `npm install`
+    * `npm start`
 
 ### Note
 The loading time of the chat model may vary based on your local machine. Kindly be patient, particularly in the DocumentChat section. After uploading a document, allow the model sufficient time to complete the processing.
