@@ -62,3 +62,7 @@ The loading time of the chat model may vary based on your local machine. Kindly 
 - The loading time of the Llama model may vary depending on the local machine; your patience is appreciated.
 - All models utilized in this application are provided free of charge.
 - We cannot be held responsible if the chatbot generates incorrect answers.
+
+## Full-feature-reviewed Video (click to play)
+
+[![Watch the video](https://img.youtube.com/vi/TwZ4DBlwSJg/0.jpg)](https://youtu.be/TwZ4DBlwSJg)
