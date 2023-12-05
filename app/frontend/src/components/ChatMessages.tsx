@@ -8,6 +8,7 @@ export interface Message {
   content: string;
   sender: "user" | "assistant";
   session?: number;
+  username?: string;
 }
 
 interface ChatMessagesProps {
