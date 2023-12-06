@@ -5,7 +5,7 @@ const Info = () => {
   return (
     <div className="bg-white my-10 mx-10">
       <div className="container mx-auto py-8">
-        <div className="bg-blue-50 text-black text-center py-4">
+        <div className="bg-blue-50 text-black text-center py-4 rounded-lg">
           <strong>
             <h1 className="text-3xl lg:text-4xl mt-10">Document Chat</h1>
           </strong>
@@ -27,7 +27,7 @@ const Info = () => {
             </div>
         </div>
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div className="bg-sky-300 px-4 py-4">
+          <div className="bg-sky-300 px-4 py-4 rounded-lg">
             <strong className="inline text-xl">
               <h2 className="pt-4 pb-2 text-center">How to use the chat?</h2>
             </strong>
@@ -42,7 +42,7 @@ const Info = () => {
                 </li>
               </ol>
           </div>
-          <div className="bg-sky-200 px-4 py-4">
+          <div className="bg-sky-200 px-4 py-4 rounded-lg">
             <strong className="inline text-xl">
               <h2 className="pt-4 pb-2 text-center">What documents can I use with Document Chat Application?</h2>
             </strong>
@@ -55,7 +55,7 @@ const Info = () => {
               <Lottie animationData={pdf} className="w-2/5 h-2/5" />
             </div>
           </div>
-          <div className="bg-sky-100 px-4 py-4">
+          <div className="bg-sky-100 px-4 py-4 rounded-lg">
             <strong className="inline text-xl">
               <h2 className="pt-4 pb-2 text-center">How does Document Chat Application work?</h2>
             </strong>
