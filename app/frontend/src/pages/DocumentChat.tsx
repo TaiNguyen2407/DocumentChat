@@ -46,14 +46,13 @@ const DocumentChat = () => {
 
   const uploadDocument = async (file: File) => {
     try {
+      setFileUploaded(false);
       if (file.type === "application/pdf") {
-        console.log("file: ", file);
+        setFile(file);
         const formData = new FormData();
         formData.append("file", file);
         try {
           const response = await postDocumentToBackendApi(formData);
-          setFile(file);
-          setFileUploaded(true);
           console.log("response: ", response);
         } catch (e) {
           console.warn("Document upload unsuccessful", e);
@@ -63,25 +62,51 @@ const DocumentChat = () => {
       }
     } catch (e) {
       console.log("error: ", e);
+    } finally {
+      setFileUploaded(true);
     }
   };
 
-  return (
-    <div className="h-full my-5 border border-solid mx-20 bg-gray-50 flex flex-col justify-between overflow-hidden border shadow-lg rounded-lg xl:mx-40">
-      {fileUploaded && file !== undefined ? (
+  if (fileUploaded && file !== undefined) {
+    return (
+      <div className="h-full my-5 border border-solid mx-20 bg-gray-50 flex flex-col justify-between overflow-hidden border shadow-lg rounded-lg xl:mx-40">
         <FileDetail file={file} />
-      ) : (
+        <ChatMessages messages={messages} loadingAnswer={isLoading} />
+        <QuestionInput
+          onSend={onSendTextMessage}
+          isDisabled={isLoading}
+          placeholder="Type a new question (e.g. what is this data about?)"
+          clearOnSend
+        />
+      </div>
+    );
+  } else if (fileUploaded === false && file !== undefined) {
+    return (
+      <div className="h-full my-5 border border-solid mx-20 bg-gray-50 flex flex-col overflow-hidden border shadow-lg rounded-lg xl:mx-40">
         <UploadDocument uploadDocument={uploadDocument} />
-      )}
-      <ChatMessages messages={messages} loadingAnswer={isLoading} />
-      <QuestionInput
-        onSend={onSendTextMessage}
-        isDisabled={isLoading}
-        placeholder="Type a new question (e.g. what is this data about?)"
-        clearOnSend
-      />
-    </div>
-  );
+        <div className="grid place-items-center w-full pt-40">
+          <div className="animate-pulse flex flex-col items-center gap-8 w-2/3">
+            <div className="">
+              <div className="w-48 h-6 bg-slate-400 rounded-md"></div>
+              <div className="w-28 h-4 bg-slate-400 mx-auto mt-3 rounded-md"></div>
+            </div>
+            <div className="h-7 bg-slate-400 w-full rounded-md"></div>
+            <div className="h-7 bg-slate-400 w-full rounded-md"></div>
+            <div className="h-7 bg-slate-400 w-full rounded-md"></div>
+            <div className="h-7 bg-slate-400 w-full rounded-md"></div>
+            <div className="h-7 bg-slate-400 w-1/2 rounded-md"></div>
+          </div>
+          <h1 className="font-semibold text-2xl pt-8">Studying the uploaded document</h1>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="h-full my-5 border border-solid mx-20 bg-gray-50 flex flex-col justify-between overflow-hidden border shadow-lg rounded-lg xl:mx-40">
+        <UploadDocument uploadDocument={uploadDocument} />
+      </div>
+    );
+  }
 };
 
 export default DocumentChat;
