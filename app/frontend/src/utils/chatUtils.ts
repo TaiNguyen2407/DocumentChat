@@ -9,7 +9,6 @@ export const updateChatName = (chatHistories: ChatHistory[], chatId: number, new
 export const checkAndUpdateChatName = (
   chatId: number,
   text: string,
-  setChatHistories: React.Dispatch<React.SetStateAction<ChatHistory[]>>
 ) => {
   const chatKey = `chat_${chatId}_first_message_sent`;
 
@@ -17,11 +16,13 @@ export const checkAndUpdateChatName = (
 
   if (!isFirstMessageSent) {
     const firstWords = text.split(' ').slice(0, 3).join(' ');
-    setChatHistories((prevHistories) =>
-      prevHistories.map((chat) =>
-        chat.id === chatId ? { ...chat, name: firstWords } : chat
-      )
-    );
+
+    const storedChatHistoriesJSON = localStorage.getItem('chatHistories');
+    const storedChatHistories = storedChatHistoriesJSON ? JSON.parse(storedChatHistoriesJSON) : [];
+
+    const newChatHistories = updateChatName(storedChatHistories, chatId, firstWords);
+
+    localStorage.setItem('chatHistories', JSON.stringify(newChatHistories));
 
     localStorage.setItem(chatKey, 'true');
   }
