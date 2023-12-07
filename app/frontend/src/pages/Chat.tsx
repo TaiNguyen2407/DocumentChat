@@ -4,8 +4,14 @@ import { postMessageToBackendApi, getNewMessageFromBackendApi, getAllMessagesFro
 import ChatMessages, { Message } from '../components/ChatMessages';
 import QuestionInput from '../components/QuestionInput';
 import { UserRoles } from '../models/userRoles';
+import { checkAndUpdateChatName } from '../utils/chatUtils';
+import { ChatHistory } from './Layout';
 
-const Chat = () => {
+interface ChatHistoryProps {
+    setChatHistories: React.Dispatch<React.SetStateAction<ChatHistory[]>>;
+  }
+
+const Chat = ({ setChatHistories }: ChatHistoryProps) => {
     const { id } = useParams<{ id: string }>();
     const chatId = id ? parseInt(id, 10) : 1;
     const [messages, setMessages] = useState<Message[]>([]);
@@ -30,6 +36,7 @@ const Chat = () => {
         setIsLoading(true);
 
         try {
+            checkAndUpdateChatName(chatId, text, setChatHistories);
             await postMessageToBackendApi({ question: text, role: UserRoles.User }, chatId);
             const newMessageBot = await getNewMessageFromBackendApi(chatId);
             setMessages((prevMessages) => [...prevMessages, newMessageBot]);

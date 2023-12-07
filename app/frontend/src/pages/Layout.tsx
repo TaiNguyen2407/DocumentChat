@@ -46,14 +46,17 @@ const Layout = () => {
   };
 
   const createNewChat = () => {
+    const newChatId = chatHistories.length + 1;
+    const defaultChatName = `Chat ${newChatId}`;
     setChatHistories((prevHistories) => [
       ...prevHistories,
       {
-        id: prevHistories.length + 1,
-        name: `Chat ${prevHistories.length + 1}`,
+        id: newChatId,
+        name: defaultChatName,
       },
     ]);
-    navigate(`/chat/${chatHistories.length + 1}`);
+  
+    navigate(`/chat/${newChatId}`);
   };
 
   return (
