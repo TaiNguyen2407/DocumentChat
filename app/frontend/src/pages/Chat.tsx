@@ -11,7 +11,6 @@ const Chat = () => {
     const chatId = id ? parseInt(id, 10) : 1;
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
     const fetchChatHistory = useCallback(async () => {
         try {
             const chatHistory = await getAllMessagesFromBackendApi(chatId);

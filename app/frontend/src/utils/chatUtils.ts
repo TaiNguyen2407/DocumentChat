@@ -1,6 +1,14 @@
 import { ChatHistory } from '../pages/Layout';
 
-export const updateChatName = (chatHistories: ChatHistory[], chatId: number, newName: string) => {
+export const CHAT_FIRST_MESSAGE_KEY = "chatFirstMessage";
+export const CHAT_HISTORIES_KEY = "chatHistories";
+
+export interface FirstMessage {
+  chatId: number;
+  firstMessageWritten: boolean;
+}
+
+export const updateChat = (chatHistories: ChatHistory[], chatId: number, newName: string) => {
   return chatHistories.map((chat) =>
     chat.id === chatId ? { ...chat, name: newName } : chat
   );
@@ -10,20 +18,24 @@ export const checkAndUpdateChatName = (
   chatId: number,
   text: string,
 ) => {
-  const chatKey = `chat_${chatId}_first_message_sent`;
+  const storedChatHistoriesJSON = localStorage.getItem(CHAT_HISTORIES_KEY);
+  const storedChatHistories = storedChatHistoriesJSON ? JSON.parse(storedChatHistoriesJSON) : [];
+  const chatToUpdate = storedChatHistories.find((chat: ChatHistory) => {
+    return chat.id === chatId;
+  });
 
-  const isFirstMessageSent = localStorage.getItem(chatKey) === 'true';
+  const storedFirstMessageJSON = localStorage.getItem(CHAT_FIRST_MESSAGE_KEY);
+  const storedFirstMessage = storedFirstMessageJSON ? JSON.parse(storedFirstMessageJSON) : [];
 
-  if (!isFirstMessageSent) {
+  if (chatToUpdate && !storedFirstMessage.includes(chatId)) {
     const firstWords = text.split(' ').slice(0, 3).join(' ');
+    
+    const newChatHistories = updateChat(storedChatHistories, chatId, firstWords);
+    localStorage.setItem(CHAT_HISTORIES_KEY, JSON.stringify(newChatHistories));
 
-    const storedChatHistoriesJSON = localStorage.getItem('chatHistories');
-    const storedChatHistories = storedChatHistoriesJSON ? JSON.parse(storedChatHistoriesJSON) : [];
+    const newFirstMessage: FirstMessage = { chatId, firstMessageWritten: true };
+    storedFirstMessage.push(newFirstMessage);
 
-    const newChatHistories = updateChatName(storedChatHistories, chatId, firstWords);
-
-    localStorage.setItem('chatHistories', JSON.stringify(newChatHistories));
-
-    localStorage.setItem(chatKey, 'true');
+    localStorage.setItem(CHAT_FIRST_MESSAGE_KEY, JSON.stringify(storedFirstMessage));
   }
 };

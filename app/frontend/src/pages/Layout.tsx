@@ -7,8 +7,7 @@ import { Sidebar } from "flowbite-react";
 import { IoChatbox, IoLogOut } from "react-icons/io5";
 import { FaLayerGroup, FaInfoCircle, FaPlusSquare } from "react-icons/fa";
 import { IconContext } from "react-icons";
-
-const CHAT_HISTORIES_KEY = "chatHistories";
+import { CHAT_HISTORIES_KEY, CHAT_FIRST_MESSAGE_KEY } from "../utils/chatUtils";
 
 export interface ChatHistory {
   id: number;
@@ -26,7 +25,7 @@ const Layout = () => {
       : [
           {
             id: initialId,
-            name: `Chat ${initialId}`,
+            name: `Chat ${initialId}`
           },
         ];
   });
@@ -34,7 +33,6 @@ const Layout = () => {
   useEffect(() => {
     localStorage.setItem(CHAT_HISTORIES_KEY, JSON.stringify(chatHistories));
   }, [chatHistories]);
-
 
   const logOut = () => {
     try {
@@ -52,7 +50,7 @@ const Layout = () => {
       ...prevHistories,
       {
         id: newChatId,
-        name: defaultChatName,
+        name: defaultChatName
       },
     ]);
   
