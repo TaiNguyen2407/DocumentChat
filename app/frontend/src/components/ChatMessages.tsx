@@ -23,32 +23,32 @@ const ChatMessages = ({ messages, loadingAnswer }: ChatMessagesProps) => {
       {messages.map((message) => (
         <div key={messages.indexOf(message)}>
           {message.sender === "user" ? (
-            <div className="flex flex-row">
+            <div className="flex flex-row-reverse">
               <UserIcon
                 icon={faUser}
                 size="2xl"
-                className="pr-4 pt-6 self-end"
+                className="pl-1 pt-6 self-end"
               />
               <div
                 key={message.id}
                 className={
-                  "w-fit max-w-xl mb-4 p-1.5 rounded-tr-lg rounded-tl-lg rounded-br-lg border shadow-lg bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r text-[#fff] text-lg"
+                  "w-fit max-w-xl mb-4 p-1.5 rounded-tr-lg rounded-tl-lg rounded-bl-lg border shadow-lg bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r text-[#fff] text-lg"
                 }
               >
                 {message.content}
               </div>
             </div>
           ) : (
-            <div className="flex flex-row-reverse">
+            <div className="flex flex-row">
               <BotIcon
                 icon={faRobot}
                 size="2xl"
-                className="pl-4 pt-6 self-end"
+                className="pr-1 pt-6 self-end"
               />
               <div
                 key={message.id}
                 className={
-                  "w-fit max-w-xl mb-4 p-1.5 rounded-tr-lg rounded-tl-lg rounded-bl-lg bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300 text-gray-800 text-lg"
+                  "w-fit max-w-xl mb-4 p-1.5 mb-6 rounded-tr-lg rounded-tl-lg rounded-br-lg bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300 text-gray-800 text-lg"
                 }
               >
                 {message.content}
