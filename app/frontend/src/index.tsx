@@ -7,7 +7,7 @@ import Chat from "./pages/Chat";
 import Info from "./pages/Info";
 import DocumentChat from "./pages/DocumentChat";
 import Login from "./pages/Login";
-import { fetchFromBrowserMemory } from "./utils/BrowserMemory";
+import { fetchFromBrowserMemory } from "./utils/browserMemory";
 import { User } from "./models/user";
 
 const root = ReactDOM.createRoot(

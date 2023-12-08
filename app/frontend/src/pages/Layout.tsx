@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import logo from "../resources/images/logo.png";
-import { removeFromBrowserMemory } from "../utils/BrowserMemory";
+import { removeFromBrowserMemory } from "../utils/browserMemory";
 import { Sidebar } from "flowbite-react";
 import { IoChatbox, IoLogOut } from "react-icons/io5";
 import { FaLayerGroup, FaInfoCircle, FaPlusSquare } from "react-icons/fa";
