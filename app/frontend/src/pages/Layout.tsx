@@ -7,7 +7,7 @@ import { Sidebar } from "flowbite-react";
 import { IoChatbox, IoLogOut } from "react-icons/io5";
 import { FaLayerGroup, FaInfoCircle, FaPlusSquare } from "react-icons/fa";
 import { IconContext } from "react-icons";
-import { CHAT_HISTORIES_KEY } from "../utils/ChatUtils";
+import { CHAT_HISTORIES_KEY } from "../utils/chatUtils";
 
 export interface ChatHistory {
   id: number;

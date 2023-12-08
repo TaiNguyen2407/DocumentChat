@@ -4,7 +4,7 @@ import { postMessageToBackendApi, getNewMessageFromBackendApi, getAllMessagesFro
 import ChatMessages, { Message } from '../components/ChatMessages';
 import QuestionInput from '../components/QuestionInput';
 import { UserRoles } from '../models/userRoles';
-import { checkAndUpdateChatName } from '../utils/ChatUtils';
+import { checkAndUpdateChatName } from '../utils/chatUtils';
 
 const Chat = () => {
     const { id } = useParams<{ id: string }>();
