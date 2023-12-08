@@ -24,7 +24,7 @@ def replace_folder_if_exists(folder_path):
 
 def generate_answer_from_chat_model(model: GPT4All, question: str, conversation_history: list, temp: float = 0.7):
     system_template = "You are a helpful, respectful and honest assistant. Always answer as helpfully as possible using the context text provided. Your answers should only answer the question once and not have any text after the answer is done. If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information."
-    # prompt_template = "CONTEXT:/n/n {context}/nQuestion: {question}"
+
     context = " ".join([msg.content for msg in conversation_history])
 
     with model.chat_session(system_template):
