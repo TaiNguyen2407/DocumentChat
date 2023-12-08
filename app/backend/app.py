@@ -29,6 +29,7 @@ def before_first_request():
             db.create_all()
             app._database_initialized = True
 
+
 data = []
 app.config['UPLOAD_FOLDER'] = './docs'
 ALLOWED_EXTENSIONS = 'pdf'
@@ -51,9 +52,11 @@ def chat_history():
     data = [msg.to_dict() for msg in messages]
     return jsonify(data)
 
+
 @app.route('/api/chat/all-messages', methods=["GET"])
 def chat_history_document():
     return data
+
 
 @app.route('/api/chat/user-question', methods=["POST"])
 def handle_frontend_request():
@@ -63,7 +66,6 @@ def handle_frontend_request():
     conversation_history = Message.query.filter_by(session=chat_id).all()
 
     response = generate_answer_from_chat_model(model, question_from_frontend, conversation_history)
-    print(response)
 
     chat_user = Message(sender="user", content=question_from_frontend, session=chat_id)
     chat_bot = Message(sender="assistant", content=response, session=chat_id)
@@ -96,7 +98,6 @@ def save_index_to_local_folder(index: FAISS, local_index_folder_path: str):
 
 @app.route('/api/upload/upload-document', methods=["POST"])
 def handle_upload_file():
-    print(request.files)
     if 'file' not in request.files:
         return 'No file part'
 
@@ -142,14 +143,18 @@ Answer: Let's think step by step.
 @app.route('/api/chat/document-chat', methods=["POST"])
 def chat_with_document():
     question_from_frontend = request.json["question"]
+
     embeddings = LlamaCppEmbeddings(model_path=llama_2_7b_chat_path)
     response = generate_answer_from_loaded_document(local_index_folder, embeddings, question_from_frontend, template, init_llama_model())
-    print(response)
+
     data_to_send_back = {"sender" : "assistant", "content" : response}
     chat_user = {"sender" : "user", "content" : question_from_frontend}
+
     chat_bot = data_to_send_back
+
     data.append(chat_user)
     data.append(chat_bot)
+
     return jsonify(data_to_send_back)
 
 if __name__ == "__main__":

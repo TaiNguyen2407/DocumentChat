@@ -14,6 +14,7 @@ Document Chat is a project developed under Metropolia University of Applied Scie
 - [Technologies](#technologies)
 - [Installation steps](#installation-steps)
 - [Disclaimers](#disclaimers)
+- [Feature Video](#full-feature-reviewed-video-click-to-play)
 
 ## Features:
 1. **Login, Logout**: Users can login and logout using their metropolia credentials.

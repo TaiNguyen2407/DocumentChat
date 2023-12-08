@@ -38,7 +38,7 @@ const DocumentChat = () => {
       };
       setMessages((prevMessages) => [...prevMessages, newMessageBot]);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
@@ -52,16 +52,15 @@ const DocumentChat = () => {
         const formData = new FormData();
         formData.append("file", file);
         try {
-          const response = await postDocumentToBackendApi(formData);
-          console.log("response: ", response);
+          await postDocumentToBackendApi(formData);
         } catch (e) {
           console.warn("Document upload unsuccessful", e);
         }
       } else {
-        console.log("please upload correct file");
+        console.error("please upload correct file");
       }
     } catch (e) {
-      console.log("error: ", e);
+      console.error("error: ", e);
     } finally {
       setFileUploaded(true);
     }

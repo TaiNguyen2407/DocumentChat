@@ -2,11 +2,11 @@ import Lottie from "lottie-react";
 import logo from "../resources/images/logo.png";
 import hello from "../resources/lottie/hello.json";
 import { useState } from "react";
-import { UserDetails } from "../api/models";
 import { postMessageToLoginApi } from "../api/api";
 import {
   saveToBrowserMemory,
 } from "../utils/browserMemory";
+import { UserDetails } from "../models/userDetails";
 
 const Login = () => {
   const [username, setUsername] = useState("");

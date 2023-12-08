@@ -39,13 +39,9 @@ def split_chunks(sources: List[str]):
 
 
 def create_index(chunks: List[str], embeddings: LlamaCppEmbeddings):
-    print('*** Start creating index for chunks *** ')
-
     texts = [doc.page_content for doc in chunks]
     metadatas = [doc.metadata for doc in chunks]
     search_index = FAISS.from_texts(texts, embeddings, metadatas=metadatas)
-    
-    print('*** Creating index for chunks finished *** ')
     return search_index
 
 
