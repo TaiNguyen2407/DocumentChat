@@ -3,12 +3,21 @@ import axios from "axios";
 import { AskRequest } from "../models/askRequest";
 import { UserDetails } from "../models/userDetails";
 
+function getUsernameFromLocalStorage() {
+  const userData = JSON.parse(localStorage.getItem("user"));
+
+  return userData ? userData.user : null;
+}
+
 export async function postMessageToBackendApi(messageToBackend: AskRequest, chatId: number) {
     try {
+        const username = getUsernameFromLocalStorage();
+
         const response = await fetch(BaseUrl + `/api/chat/user-question?chat-id=${chatId}`, {
             method: "POST",
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Username': username
             },
             body: JSON.stringify(messageToBackend)
         })
@@ -30,10 +39,13 @@ export async function postMessageToBackendApi(messageToBackend: AskRequest, chat
 
 export async function getNewMessageFromBackendApi(chatId: number) {
     try {
+        const username = getUsernameFromLocalStorage();
+
         const response = await fetch(BaseUrl + `/api/chat-history?chat-id=${chatId}`, {
             method: "GET",
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Username': username
             }
         })
 
@@ -54,10 +66,13 @@ export async function getNewMessageFromBackendApi(chatId: number) {
 
 export async function getAllMessagesFromBackendApi(chatId: number) {
     try {
+        const username = getUsernameFromLocalStorage();
+
         const response = await fetch(BaseUrl + `/api/chat-history?chat-id=${chatId}`, {
             method: "GET",
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Username': username
             }
         })
 

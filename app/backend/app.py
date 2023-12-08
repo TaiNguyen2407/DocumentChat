@@ -48,7 +48,15 @@ def chat():
 @app.route('/api/chat-history', methods=["GET"])
 def chat_history():
     chat_id = request.args.get("chat-id")
-    messages = Message.query.filter_by(session=chat_id).all()
+    username = request.headers.get("Username")
+
+    base_query = Message.query.filter_by(session=chat_id)
+
+    if username:
+        base_query = base_query.filter_by(username=username)
+
+    messages = base_query.all()
+
     data = [msg.to_dict() for msg in messages]
     return jsonify(data)
 
@@ -63,12 +71,14 @@ def handle_frontend_request():
     question_from_frontend = request.json["question"]
     chat_id = request.args.get("chat-id")
 
-    conversation_history = Message.query.filter_by(session=chat_id).all()
+    username = request.headers.get("Username")
+
+    conversation_history = Message.query.filter_by(session=chat_id, username=username).all()
 
     response = generate_answer_from_chat_model(model, question_from_frontend, conversation_history)
 
-    chat_user = Message(sender="user", content=question_from_frontend, session=chat_id)
-    chat_bot = Message(sender="assistant", content=response, session=chat_id)
+    chat_user = Message(sender="user", content=question_from_frontend, session=chat_id, username=username)
+    chat_bot = Message(sender="assistant", content=response, session=chat_id, username=username)
 
     db.session.add(chat_user)
     db.session.add(chat_bot)

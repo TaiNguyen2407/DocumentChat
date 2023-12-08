@@ -7,6 +7,13 @@ class Message(db.Model):
     sender = db.Column(db.String(50))
     content = db.Column(db.String(500))
     session = db.Column(db.Integer)
+    username = db.Column(db.String(50))
 
     def to_dict(self):
-        return {"id": self.id, "sender": self.sender, "content": self.content, "session": self.session}
+        return {
+                "id": self.id, 
+                "sender": self.sender, 
+                "content": self.content, 
+                "session": self.session, 
+                "username": self.username
+                }

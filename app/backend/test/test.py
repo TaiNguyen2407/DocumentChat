@@ -46,4 +46,4 @@ def test_handle_frontend_request_route(client):
     assert response.json["sender"] == "assistant"
     assert "content" in response.json
 
-    assert len(response.json) == 4
+    assert len(response.json) == 5

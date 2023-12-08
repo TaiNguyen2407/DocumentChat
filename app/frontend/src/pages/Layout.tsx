@@ -7,8 +7,7 @@ import { Sidebar } from "flowbite-react";
 import { IoChatbox, IoLogOut } from "react-icons/io5";
 import { FaLayerGroup, FaInfoCircle, FaPlusSquare } from "react-icons/fa";
 import { IconContext } from "react-icons";
-
-const CHAT_HISTORIES_KEY = "chatHistories";
+import { CHAT_HISTORIES_KEY } from "../utils/chatUtils";
 
 export interface ChatHistory {
   id: number;
@@ -17,7 +16,6 @@ export interface ChatHistory {
 
 const Layout = () => {
   const navigate = useNavigate();
-
   const initialId = 1;
   const [chatHistories, setChatHistories] = useState<ChatHistory[]>(() => {
     const storedHistories = localStorage.getItem(CHAT_HISTORIES_KEY);
@@ -26,7 +24,7 @@ const Layout = () => {
       : [
           {
             id: initialId,
-            name: `Chat ${initialId}`,
+            name: `Chat ${initialId}`
           },
         ];
   });
@@ -34,7 +32,6 @@ const Layout = () => {
   useEffect(() => {
     localStorage.setItem(CHAT_HISTORIES_KEY, JSON.stringify(chatHistories));
   }, [chatHistories]);
-
 
   const logOut = () => {
     try {
@@ -46,14 +43,17 @@ const Layout = () => {
   };
 
   const createNewChat = () => {
+    const newChatId = chatHistories.length + 1;
+    const defaultChatName = `Chat ${newChatId}`;
     setChatHistories((prevHistories) => [
       ...prevHistories,
       {
-        id: prevHistories.length + 1,
-        name: `Chat ${prevHistories.length + 1}`,
+        id: newChatId,
+        name: defaultChatName
       },
     ]);
-    navigate(`/chat/${chatHistories.length + 1}`);
+  
+    navigate(`/chat/${newChatId}`);
   };
 
   return (
