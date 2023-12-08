@@ -5,7 +5,7 @@ import { useState } from "react";
 import { postMessageToLoginApi } from "../api/api";
 import {
   saveToBrowserMemory,
-} from "../utils/browserMemory";
+} from "../utils/BrowserMemory";
 import { UserDetails } from "../models/userDetails";
 
 const Login = () => {

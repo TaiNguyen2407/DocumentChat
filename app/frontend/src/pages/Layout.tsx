@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import logo from "../resources/images/logo.png";
-import { removeFromBrowserMemory } from "../utils/browserMemory";
+import { removeFromBrowserMemory } from "../utils/BrowserMemory";
 import { Sidebar } from "flowbite-react";
 import { IoChatbox, IoLogOut } from "react-icons/io5";
 import { FaLayerGroup, FaInfoCircle, FaPlusSquare } from "react-icons/fa";
 import { IconContext } from "react-icons";
-import { CHAT_HISTORIES_KEY, CHAT_FIRST_MESSAGE_KEY } from "../utils/chatUtils";
+import { CHAT_HISTORIES_KEY } from "../utils/ChatUtils";
 
 export interface ChatHistory {
   id: number;
@@ -16,7 +16,6 @@ export interface ChatHistory {
 
 const Layout = () => {
   const navigate = useNavigate();
-
   const initialId = 1;
   const [chatHistories, setChatHistories] = useState<ChatHistory[]>(() => {
     const storedHistories = localStorage.getItem(CHAT_HISTORIES_KEY);
