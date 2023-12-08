@@ -18,7 +18,6 @@ export interface ChatHistory {
 const Layout = () => {
   const navigate = useNavigate();
 
-  const [isCollapsed, setIsCollapsed] = useState(false);
   const initialId = 1;
   const [chatHistories, setChatHistories] = useState<ChatHistory[]>(() => {
     const storedHistories = localStorage.getItem(CHAT_HISTORIES_KEY);
@@ -36,9 +35,6 @@ const Layout = () => {
     localStorage.setItem(CHAT_HISTORIES_KEY, JSON.stringify(chatHistories));
   }, [chatHistories]);
 
-  const collapseHamburgerMenu = () => {
-    setIsCollapsed(!isCollapsed);
-  };
 
   const logOut = () => {
     try {
@@ -63,7 +59,7 @@ const Layout = () => {
   return (
     <div className="flex flex-row w-full h-full overflow-y-scroll">
       <IconContext.Provider value={{className: 'react-icons'}}>
-      <Sidebar collapsed={isCollapsed} className="border shadow-lg">
+      <Sidebar className="border shadow-lg" >
         <div className="h-full flex flex-col justify-between overflow-scroll">
           <div>
             <div className="">

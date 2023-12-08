@@ -56,10 +56,8 @@ const ChatMessages = ({ messages, loadingAnswer }: ChatMessagesProps) => {
           )}
         </div>
       ))}
-      {messages[messages.length - 1]?.sender === "user" && loadingAnswer ? (
+      {messages[messages.length - 1]?.sender === "user" && loadingAnswer && (
         <BotThinking />
-      ) : (
-        <></>
       )}
     </div>
   );

@@ -34,7 +34,7 @@ const Chat = () => {
             const newMessageBot = await getNewMessageFromBackendApi(chatId);
             setMessages((prevMessages) => [...prevMessages, newMessageBot]);
         } catch (error) {
-            console.log(error);
+            console.error(error);
         } finally {
             setIsLoading(false);
         }
