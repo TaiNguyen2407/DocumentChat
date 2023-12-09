@@ -66,4 +66,4 @@ The loading time of the chat model may vary based on your local machine. Kindly 
 
 ## Full-feature-reviewed Video (click to play)
 
-[![Watch the video](https://img.youtube.com/vi/TwZ4DBlwSJg/0.jpg)](https://youtu.be/TwZ4DBlwSJg)
+[![Watch the video](https://img.youtube.com/vi/qK2dtLfH8MM/0.jpg)](https://youtu.be/qK2dtLfH8MM)
