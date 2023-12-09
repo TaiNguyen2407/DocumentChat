@@ -20,7 +20,7 @@ const Info = () => {
                   of Applied Sciences's scope.
                 </p>
                 <div className="flex justify-start">
-                  <a href="https://youtu.be/TwZ4DBlwSJg" className="text-left text-white mx-20 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" target="__blank">Watch video</a>
+                  <a href="https://youtu.be/qK2dtLfH8MM" className="text-left text-white mx-20 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" target="__blank">Watch video</a>
                 </div>
               </div>
               <Lottie animationData={document} className="w-4/5 h-4/5" />
