@@ -3,17 +3,20 @@ import { ChatHistory } from '../pages/Layout';
 export const CHAT_FIRST_MESSAGE_KEY = "chatFirstMessage";
 export const CHAT_HISTORIES_KEY = "chatHistories";
 
+/*This interface is used for storing the details of first message of a chat. */
 export interface FirstMessage {
   chatId: number;
   firstMessageWritten: boolean;
 }
 
+/*This method is used to update chat along with the chat history. */
 export const updateChat = (chatHistories: ChatHistory[], chatId: number, newName: string) => {
   return chatHistories.map((chat) =>
     chat.id === chatId ? { ...chat, name: newName } : chat
   );
 };
 
+/*This method is used for checking and updating the chat name according to the chats. */
 export const checkAndUpdateChatName = (
   chatId: number,
   text: string,

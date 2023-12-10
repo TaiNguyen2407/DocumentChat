@@ -14,6 +14,7 @@ export interface ChatHistory {
   name: string;
 }
 
+/*This page is used as layout skeleton the frontend of our application. */
 const Layout = () => {
   const navigate = useNavigate();
   const initialId = 1;
@@ -29,10 +30,12 @@ const Layout = () => {
         ];
   });
 
+  //Fetching chat histories from local storage
   useEffect(() => {
     localStorage.setItem(CHAT_HISTORIES_KEY, JSON.stringify(chatHistories));
   }, [chatHistories]);
 
+  /*Method for logging out user */
   const logOut = () => {
     try {
       removeFromBrowserMemory("user");
@@ -42,6 +45,7 @@ const Layout = () => {
     }
   };
 
+  /*Method for creating a new chat. */
   const createNewChat = () => {
     const newChatId = chatHistories.length + 1;
     const defaultChatName = `Chat ${newChatId}`;

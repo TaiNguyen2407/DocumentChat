@@ -1,3 +1,4 @@
+/*This function is created for fetching data from local storage */
 export function fetchFromBrowserMemory(key: string) {
   try {
     return localStorage.getItem(key);
@@ -6,6 +7,7 @@ export function fetchFromBrowserMemory(key: string) {
   }
 }
 
+/*This function is created for posting data from local storage */
 export function saveToBrowserMemory(key: string, value: string) {
   try {
     localStorage.setItem(key, value);
@@ -14,6 +16,7 @@ export function saveToBrowserMemory(key: string, value: string) {
   }
 }
 
+/*This function is created for removing data from local storage */
 export function removeFromBrowserMemory(key: string) {
   try {
     localStorage.removeItem(key);

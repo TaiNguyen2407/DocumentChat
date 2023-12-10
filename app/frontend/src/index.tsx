@@ -22,6 +22,7 @@ root.render(
 export default function App() {
   const [loggedInUser, setLoggedInUser] = useState<User>();
 
+  //Fetching the user details from local storage.
   useEffect(() => {
     const fetchData = async () => {
       const data = fetchFromBrowserMemory("user");
