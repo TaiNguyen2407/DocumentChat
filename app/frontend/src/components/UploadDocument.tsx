@@ -1,12 +1,17 @@
 import { ChangeEvent, useState } from "react";
 
+/*Interface for storing uploadDocument component's props. */
 interface UploadDocumentProps {
   uploadDocument: (file: File) => void
 }
 
+/*This component used for posting documents to our backend for document related chats.
+*/
 const UploadDocument = ({uploadDocument} : UploadDocumentProps ) => {
   const [selectedFile, setSelectedFile] = useState<File>();
 
+  /*Method for handling the file selection.
+  */
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     setSelectedFile(file);

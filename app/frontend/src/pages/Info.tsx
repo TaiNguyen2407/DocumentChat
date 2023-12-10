@@ -1,6 +1,8 @@
 import Lottie from "lottie-react";
 import document from "../resources/lottie/document.json";
 import pdf from "../resources/lottie/pdf.json";
+
+/*This page is created for displaying information about our application */
 const Info = () => {
   return (
     <div className="bg-white my-10 mx-10">

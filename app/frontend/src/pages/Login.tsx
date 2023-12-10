@@ -8,11 +8,13 @@ import {
 } from "../utils/browserMemory";
 import { UserDetails } from "../models/userDetails";
 
+/*This page is created for logging in users.*/
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  /*Method for logging in user. */
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const userDetails: UserDetails = {

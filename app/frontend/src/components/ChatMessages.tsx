@@ -11,11 +11,13 @@ export interface Message {
   username?: string;
 }
 
+/*This object contains props for chat message component. */
 interface ChatMessagesProps {
   messages: Message[];
   loadingAnswer: boolean;
 }
 
+/*This component is created for displaying the list of messages between our user and backend */
 const ChatMessages = ({ messages, loadingAnswer }: ChatMessagesProps) => {
   
   return (

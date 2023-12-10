@@ -6,11 +6,14 @@ import QuestionInput from '../components/QuestionInput';
 import { UserRoles } from '../models/userRoles';
 import { checkAndUpdateChatName } from '../utils/chatUtils';
 
+/*This page is created for displaying a general chat between user and LLM */
 const Chat = () => {
     const { id } = useParams<{ id: string }>();
     const chatId = id ? parseInt(id, 10) : 1;
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    /*Method for fetching the chat history. */
     const fetchChatHistory = useCallback(async () => {
         try {
             const chatHistory = await getAllMessagesFromBackendApi(chatId);
@@ -24,6 +27,7 @@ const Chat = () => {
         fetchChatHistory();
     }, [chatId, fetchChatHistory]);
 
+    /* Method for asking question from chat page. */
     const onSendTextMessage = async (text: string) => {
         const newMessage: Message = { id: messages.length + 1, content: text, sender: 'user', session: chatId };
         setMessages((prevMessages) => [...prevMessages, newMessage]);

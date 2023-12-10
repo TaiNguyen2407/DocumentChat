@@ -1,10 +1,13 @@
 
+/*This object contains props for fileDetail component */
 interface FileDetailProps {
   file: File;
 }
 
+/*This component is created for displaying the detail of the uploaded file. */
 const FileDetail = ({ file }: FileDetailProps) => {
 
+  /*Method for fetching the file type from file details. */
   const fileType = (): string => {
     const stringSplit = file.type.split("/");
     return stringSplit[1].toLocaleUpperCase();

@@ -1,6 +1,7 @@
 import { FontAwesomeIcon as BotIcon } from "@fortawesome/react-fontawesome";
 import { faRobot } from "@fortawesome/free-solid-svg-icons";
 
+/* This component is created for showing the loading while question is uploaded to our backend api and waiting for the response */
 const BotThinking = () => {
 
     return(

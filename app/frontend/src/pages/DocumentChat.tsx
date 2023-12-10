@@ -10,12 +10,14 @@ import UploadDocument from "../components/UploadDocument";
 import FileDetail from "../components/FileDetail";
 import { UserRoles } from "../models/userRoles";
 
+/*This page is created for displaying a chat related to document between user and LLM */
 const DocumentChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [fileUploaded, setFileUploaded] = useState<boolean>(false);
   const [file, setFile] = useState<File>();
 
+  /*Method for asking question related to the document in documentChat page. */
   const onSendTextMessage = async (text: string) => {
     const newMessage: Message = {
       id: messages.length + 1,
@@ -44,6 +46,7 @@ const DocumentChat = () => {
     }
   };
 
+  /*Method for uploading the document */
   const uploadDocument = async (file: File) => {
     try {
       setFileUploaded(false);
@@ -66,6 +69,7 @@ const DocumentChat = () => {
     }
   };
 
+  //IF else used for displaying correct phase between before uploading document, document uplading and document uploaded"
   if (fileUploaded && file !== undefined) {
     return (
       <div className="h-full my-5 border border-solid mx-20 bg-gray-50 flex flex-col justify-between overflow-hidden border shadow-lg rounded-lg xl:mx-40">

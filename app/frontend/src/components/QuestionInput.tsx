@@ -2,6 +2,7 @@ import { Stack, TextField } from "@fluentui/react"
 import { Send28Filled } from "@fluentui/react-icons"
 import { useState } from "react"
 
+/*This object contains props for QuestionInput component. */
 interface QuestionInputProps {
     onSend: (question: string) => void 
     isDisabled: boolean
@@ -9,9 +10,11 @@ interface QuestionInputProps {
     clearOnSend?: boolean
 }
 
+/* This component is used for taking user's question input for posting it to our backend. */
 const QuestionInput = ({onSend, isDisabled, placeholder, clearOnSend} : QuestionInputProps) => {
     const [question, setQuestion] = useState<string>('');
 
+    /*Method for posting the question */
     const sendQuestion = () => {
         if (isDisabled || !question.trim()) {
             return
@@ -24,6 +27,7 @@ const QuestionInput = ({onSend, isDisabled, placeholder, clearOnSend} : Question
         }
     };
 
+    /*Method for handling the question input. */
     const onQuestionChange = (_e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         if (!newValue) {
             setQuestion("")
