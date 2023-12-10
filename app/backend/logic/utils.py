@@ -21,16 +21,15 @@ def replace_folder_if_exists(folder_path):
     # Create a new folder
     os.makedirs(folder_path)
 
-
+# Genrate answer from chat model based on the question and conversation history
 def generate_answer_from_chat_model(model: GPT4All, question: str, conversation_history: list, temp: float = 0.7):
     system_template = "You are a helpful, respectful and honest assistant. Always answer as helpfully as possible using the context text provided. Your answers should only answer the question once and not have any text after the answer is done. If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information."
-
     context = " ".join([msg.content for msg in conversation_history])
 
     with model.chat_session(system_template):
         return model.generate(prompt=f"{context}\nUser: {question}", temp=temp)
 
-
+# Splitting the document into chunks
 def split_chunks(sources: List[str]):
     chunks = []
     splitter = RecursiveCharacterTextSplitter(chunk_size=256, chunk_overlap=32)
@@ -38,14 +37,18 @@ def split_chunks(sources: List[str]):
         chunks.append(chunk)
     return chunks
 
-
+# Creating index for the chunks
 def create_index(chunks: List[str], embeddings: LlamaCppEmbeddings):
+    print('*** Start creating index for chunks *** ')
+
     texts = [doc.page_content for doc in chunks]
     metadatas = [doc.metadata for doc in chunks]
     search_index = FAISS.from_texts(texts, embeddings, metadatas=metadatas)
+    
+    print('*** Creating index for chunks finished *** ')
     return search_index
 
-
+# Finding the similar document chunks based on the query
 def similarity_search(query: str, index: FAISS):
     matched_docs = index.similarity_search(query, k=4)
     sources = []
@@ -58,7 +61,7 @@ def similarity_search(query: str, index: FAISS):
         )
     return matched_docs, sources
 
-
+# Generating answer based on the loaded document
 def generate_answer_from_loaded_document(local_index_folder: str, embeddings: LlamaCppEmbeddings, question: str, template: str, llm: LlamaCpp):
     loaded_index = FAISS.load_local(f'./{local_index_folder}', embeddings)
     matched_docs, sources = similarity_search(question, loaded_index)
