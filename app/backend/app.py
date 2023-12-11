@@ -14,6 +14,7 @@ from logic.utils import generate_answer_from_chat_model, split_chunks, create_in
 app = Flask(__name__)
 CORS(app)
 
+# Configuring the database and creating the database if it does not exist
 class Config:
     SQLALCHEMY_DATABASE_URI = 'sqlite:///chat_history.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -29,7 +30,6 @@ def before_first_request():
             db.create_all()
             app._database_initialized = True
 
-
 data = []
 app.config['UPLOAD_FOLDER'] = './docs'
 ALLOWED_EXTENSIONS = 'pdf'
@@ -44,7 +44,7 @@ model = GPT4All(model_name=chat_model)
 def chat():
     return "hello world"
 
-
+# Method to get all the messages from the database based on the chat-id
 @app.route('/api/chat-history', methods=["GET"])
 def chat_history():
     chat_id = request.args.get("chat-id")
@@ -60,12 +60,12 @@ def chat_history():
     data = [msg.to_dict() for msg in messages]
     return jsonify(data)
 
-
+# Method to get all the messages from the database for document chat
 @app.route('/api/chat/all-messages', methods=["GET"])
 def chat_history_document():
     return data
 
-
+# Method to generate the response from the chat model for simple chat
 @app.route('/api/chat/user-question', methods=["POST"])
 def handle_frontend_request():
     question_from_frontend = request.json["question"]
@@ -76,6 +76,7 @@ def handle_frontend_request():
     conversation_history = Message.query.filter_by(session=chat_id, username=username).all()
 
     response = generate_answer_from_chat_model(model, question_from_frontend, conversation_history)
+    print(response)
 
     chat_user = Message(sender="user", content=question_from_frontend, session=chat_id, username=username)
     chat_bot = Message(sender="assistant", content=response, session=chat_id, username=username)
@@ -91,7 +92,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.split('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
+# Methods to create the index for the uploaded document and save them to the local folder
 def create_index_for_uploaded_document(file) -> FAISS:
     loader = PyPDFLoader(app.config['UPLOAD_FOLDER'] + '/' + file.filename)
     docs = loader.load()
@@ -106,8 +107,10 @@ def save_index_to_local_folder(index: FAISS, local_index_folder_path: str):
     index.save_local(folder_path=local_index_folder_path)
 
 
+# Method to upload the document to the server
 @app.route('/api/upload/upload-document', methods=["POST"])
 def handle_upload_file():
+    print(request.files)
     if 'file' not in request.files:
         return 'No file part'
 
@@ -124,7 +127,7 @@ def handle_upload_file():
 
     return 'File not allowed'
     
-
+# Initializing the document chat language model
 def init_llama_model() -> LlamaCpp:
     callback_manager = CallbackManager([StreamingStdOutCallbackHandler])
     llm = LlamaCpp(
@@ -140,7 +143,7 @@ def init_llama_model() -> LlamaCpp:
     )   
     return llm
 
-
+# Template for the document chat
 template = """
 Please use the following context to answer questions.
 Context: {context}
@@ -149,22 +152,18 @@ Question: {question}
 Answer: Let's think step by step.
 """
 
-
+# Method to generate the response from the document chat model
 @app.route('/api/chat/document-chat', methods=["POST"])
 def chat_with_document():
     question_from_frontend = request.json["question"]
-
     embeddings = LlamaCppEmbeddings(model_path=llama_2_7b_chat_path)
     response = generate_answer_from_loaded_document(local_index_folder, embeddings, question_from_frontend, template, init_llama_model())
-
+    print(response)
     data_to_send_back = {"sender" : "assistant", "content" : response}
     chat_user = {"sender" : "user", "content" : question_from_frontend}
-
     chat_bot = data_to_send_back
-
     data.append(chat_user)
     data.append(chat_bot)
-
     return jsonify(data_to_send_back)
 
 if __name__ == "__main__":
